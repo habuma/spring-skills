@@ -1,0 +1,14 @@
+function:
+  name: lyrics
+
+spring:
+  jackson:
+    default-property-inclusion: non-null
+
+songs:
+  lyrics:
+    - Summer. It turns you upside down. Summer summer summer. It's like a merry go round.
+    - Johnny used to work on the dock. Union went on strike. He's down on his luck. It's tough. So tough.
+    - I get up. And nothing gets me down. You got it tough. I've seen the toughest all around.
+    - Just a small town girl. Living in a lonely world. She took the midnight train going anywhere.
+    - See the stone set in your eyes. See the thorn twist in your side. I wait for you.

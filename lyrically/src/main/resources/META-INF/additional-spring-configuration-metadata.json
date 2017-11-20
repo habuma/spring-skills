@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "fortune.fortunes",
+  "type": "java.lang.String[]",
+  "description": "An array of fortunes to choose from"
+}]}
