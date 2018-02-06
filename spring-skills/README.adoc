@@ -2,4 +2,6 @@
 
 Spring Skills is a project that enables development of Alexa voice-based skills in Java with the Spring Framework.
 
+== Disclaimer
+
 At this time, this project is only an experiment and should not be considered an official project of the Spring portfolio, nor should there be any expectation of support from the Spring team or Pivotal Software. While I welcome suggestions, pull-requests, and bug reports, I cannot offer any promises with regard to service-level. 
