@@ -2,6 +2,8 @@
 
 Lyrically is a Spring Cloud Function application for deployment to AWS Lambda that produces Speechlet response JSON. That means that it can be triggered as the backing function for an Alexa Skill.
 
+This project does not make use of Spring Skills.
+
 Once the function is deployed to AWS Lambda and the skill is defined you should be able to use it with any of the following utterances:
 
  * _Alexa, ask Lyrically to give me a lyric_
@@ -68,14 +70,14 @@ To deploy the application to AWS Lambda (the previously created role should be g
 
 [source,sh]
 ----
-$ aws lambda create-function --function-name lyrics --role arn:aws:iam::494442948374:role/service-role/mySpeechRole --zip-file fileb://target/spring-skills-0.0.1-SNAPSHOT-aws.jar --handler org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler --description "Spring Cloud Function + Alexa Example" --runtime java8 --region us-east-1 --timeout 30 --memory-size 1024 --publish
+$ aws lambda create-function --function-name lyrics --role arn:aws:iam::494442948374:role/service-role/mySpeechRole --zip-file fileb://target/lyrically-0.0.1-SNAPSHOT-aws.jar --handler org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler --description "Lyrically: Spring Cloud Function + Alexa Example" --runtime java8 --region us-east-1 --timeout 30 --memory-size 1024 --publish
 ----
 
 If you make changes, build the project again, then:
 
 [source,sh]
 ----
-aws lambda update-function-code --function-name=lyrics --zip-file fileb://target/spring-skills-0.0.1-SNAPSHOT-aws.jar
+aws lambda update-function-code --function-name=lyrics --zip-file fileb://target/lyrically-0.0.1-SNAPSHOT-aws.jar
 ----
 
 == Defining the Alexa Skill

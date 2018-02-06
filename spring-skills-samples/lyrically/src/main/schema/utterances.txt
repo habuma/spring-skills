@@ -1,0 +1,8 @@
+GetLyricIntent Get a lyric
+GetLyricIntent Get some lyrics
+GetLyricIntent Give me a lyric
+GetLyricIntent Give me some lyrics
+GetLyricIntent Say a lyric
+GetLyricIntent Say some lyrics
+GetLyricIntent Recite a lyric
+GetLyricIntent Recite some lyrics

@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.habuma</groupId>
-	<artifactId>spring-skills</artifactId>
+	<groupId>com.habuma.skills</groupId>
+	<artifactId>lyrically</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-skills</name>
+	<name>spring-skills-lyrically</name>
 	<description>A Spring Cloud Function sample that can back an Alexa skill</description>
 
 	<parent>
@@ -91,28 +91,28 @@
 	</dependencyManagement>
 
 	<build>
-<plugins>
-	<plugin>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-maven-plugin</artifactId>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot.experimental</groupId>
-				<artifactId>spring-boot-thin-layout</artifactId>
-				<version>${wrapper.version}</version>
-			</dependency>
-		</dependencies>
-	</plugin>
-          <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-shade-plugin</artifactId>
-                  <configuration>
-                          <createDependencyReducedPom>false</createDependencyReducedPom>
-                          <shadedArtifactAttached>true</shadedArtifactAttached>
-                          <shadedClassifierName>aws</shadedClassifierName>
-                  </configuration>
-          </plugin>
-</plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.boot.experimental</groupId>
+						<artifactId>spring-boot-thin-layout</artifactId>
+						<version>${wrapper.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		          <plugin>
+		                  <groupId>org.apache.maven.plugins</groupId>
+		                  <artifactId>maven-shade-plugin</artifactId>
+		                  <configuration>
+		                          <createDependencyReducedPom>false</createDependencyReducedPom>
+		                          <shadedArtifactAttached>true</shadedArtifactAttached>
+		                          <shadedClassifierName>aws</shadedClassifierName>
+		                  </configuration>
+		          </plugin>
+		</plugins>
 	</build>
 
 

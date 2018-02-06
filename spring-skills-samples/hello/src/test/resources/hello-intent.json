@@ -1,0 +1,1 @@
+{"version":"1.0","session":{"new":false,"sessionId":"session_1","application":null,"user":{"userId":"habuma"}},"request":{"type":"IntentRequest","requestId":"hello_1","timestamp":"2018-02-05T06:42:47Z","intent":{"name":"hello"}}}

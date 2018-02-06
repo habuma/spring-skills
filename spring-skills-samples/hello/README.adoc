@@ -1,0 +1,79 @@
+= Hello Spring Skills Sample
+
+A simple "hello world" sample for Spring Skills.
+
+Once the function is deployed to AWS Lambda and the skill is defined, you should be able to use it with any of the following utterances:
+
+ * _Alexa, open Hello Spring_
+ * _Alexa, ask Hello Spring to say hello_
+
+Alexa will reply by saying "Hello Spring World".
+
+== Building and Running the Function Locally
+
+To build the application:
+
+[source,sh]
+----
+$ mvn clean package
+----
+
+To run locally:
+
+[source,sh]
+----
+$ mvn spring-boot:run
+----
+
+Then...
+
+[source,sh]
+----
+$ curl localhost:8080/sayHello -d@src/test/resourceshello-intent.json -H"Content-type: application/json"
+----
+
+You should see a speechlet response similar to the following:
+
+[source,json]
+----
+{
+  "version": null,
+  "response": {
+    "outputSpeech": {
+      "type": "SSML",
+      "id": "hello",
+      "ssml": "<speak>Hello Spring World!</speak>"
+    },
+    "card": {
+      "type": "Simple",
+      "title": "Hello",
+      "content": "Hello Spring World!"
+    },
+    "reprompt": null,
+    "shouldEndSession": true
+  },
+  "sessionAttributes": null
+}
+----
+
+=== Deploying the function to AWS Lambda
+
+Before deploying to Lambda, you'll need to create a role for the function (or have one already created):
+
+[source,sh]
+----
+TODO
+----
+
+To deploy the function using the `aws` command line:
+
+[source,sh]
+----
+$ aws lambda create-function --function-name lyrics --role {Role ARN} --zip-file fileb://target/hello-0.0.1-SNAPSHOT-aws.jar --handler org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler --description "Hello: Spring Cloud Function + Alexa Example" --runtime java8 --region us-east-1 --timeout 30 --memory-size 1024 --publish
+----
+
+(Substitute your role's ARN for the `{Role ARN}` placeholder.)
+
+=== Defining the skill
+
+TODO
