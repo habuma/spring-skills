@@ -1,8 +1,0 @@
-# If set to "requestDispatcher", all speechlet requests will be funneled
-# through the Spring Skills `SpeechletRequestDispatcher`. This will allow
-# the request dispatcher to handle all kinds of speechlet requests, not
-# just intent requests. 
-# On the other hand, if set to "sayHello", all requests will go to the 
-# function bean whose ID is "sayHello".  
-function:
-  name: requestDispatcher
