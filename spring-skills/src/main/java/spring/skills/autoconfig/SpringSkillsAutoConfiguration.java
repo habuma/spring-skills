@@ -20,6 +20,7 @@ import java.util.function.Function;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
@@ -37,16 +38,16 @@ import spring.skills.handler.UnknownIntentHandler;
 import spring.skills.handler.UnknownRequestHandler;
 
 @Configuration
+@PropertySource("classpath:spring/skills/autoconfig/skills.properties")
 public class SpringSkillsAutoConfiguration {
 	
 	@Bean
 	public SpringSkillsProperties springSkillsProperties() {
 		return new SpringSkillsProperties();
 	}
-	
 
-	@Bean("requestDispatcher")
-	public Function<SpeechletRequestEnvelope, SpeechletResponseEnvelope> srd() {
+	@Bean
+	public Function<SpeechletRequestEnvelope, SpeechletResponseEnvelope> _requestDispatcher() {
 		return requestEnv -> {
 			return _speechletRequestDispatcher().handle(requestEnv);
 		};
