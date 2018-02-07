@@ -64,7 +64,7 @@ public class HelloApplicationTests {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<SpeechletRequestEnvelope> requestEntity = new HttpEntity<SpeechletRequestEnvelope>(requestEnv, headers);
-		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
+		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/_requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
 		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
 		assertEquals("Hello", card.getTitle());
 		assertEquals("Hello Spring World!", card.getContent());
@@ -79,7 +79,7 @@ public class HelloApplicationTests {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<SpeechletRequestEnvelope> requestEntity = new HttpEntity<SpeechletRequestEnvelope>(requestEnv, headers);
-		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
+		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/_requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
 		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
 		assertEquals("Hello Help", card.getTitle());
 		assertEquals("Just ask me to say hello", card.getContent());

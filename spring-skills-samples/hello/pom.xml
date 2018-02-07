@@ -71,7 +71,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -85,15 +85,15 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-		          <plugin>
-		                  <groupId>org.apache.maven.plugins</groupId>
-		                  <artifactId>maven-shade-plugin</artifactId>
-		                  <configuration>
-		                          <createDependencyReducedPom>false</createDependencyReducedPom>
-		                          <shadedArtifactAttached>true</shadedArtifactAttached>
-		                          <shadedClassifierName>aws</shadedClassifierName>
-		                  </configuration>
-		          </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<configuration>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<shadedArtifactAttached>true</shadedArtifactAttached>
+					<shadedClassifierName>aws</shadedClassifierName>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
