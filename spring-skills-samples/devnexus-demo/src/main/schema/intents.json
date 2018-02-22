@@ -1,0 +1,25 @@
+{
+  "intents": [
+    {
+      "intent": "SayHello"
+    },
+    {
+    	  "intent": "HokeyPokey",
+    	  "slots": [
+    	    {
+    	      "name": "Part",
+    	      "type": "LIST_OF_PARTS"
+    	    }
+    	  ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}

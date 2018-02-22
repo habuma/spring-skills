@@ -1,0 +1,12 @@
+skills:
+  hello:
+    message: >
+      Hello, and welcome to DevNexus!
+      Thank you for attending Craig's session.
+      I hope you enjoy it!
+    hokey: >
+      You put your {part} in.
+      You put your {part} out.
+      You put your {part} in, and you shake it all about.
+      You do the hokey-pokey and turn yourself around.
+      That's what it's all about.
