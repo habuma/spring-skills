@@ -1,0 +1,5 @@
+= Speechlet Web
+
+Sample Spring Boot application that handles Alexa Speechlet requests.
+
+Must be deployed somewhere that Amazon can see it (such as run.pivotal.io).
