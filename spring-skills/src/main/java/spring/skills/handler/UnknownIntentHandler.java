@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
-import com.amazon.speech.speechlet.SpeechletRequest;
+import com.amazon.speech.speechlet.IntentRequest;
 
-public interface UnknownIntentHandler extends Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> {
+public interface UnknownIntentHandler extends Function<SpeechletRequestEnvelope<IntentRequest>, SpeechletResponseEnvelope> {
 }

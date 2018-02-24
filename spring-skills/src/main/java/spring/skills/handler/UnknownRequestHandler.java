@@ -21,6 +21,6 @@ import com.amazon.speech.speechlet.SpeechletRequest;
 
 public interface UnknownRequestHandler {
 	
-	SpeechletResponseEnvelope handleUnknownRequest(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope);
+	SpeechletResponseEnvelope handleUnknownRequest(SpeechletRequestEnvelope<? extends SpeechletRequest> requestEnvelope);
 
 }

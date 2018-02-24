@@ -33,6 +33,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
 import com.amazon.speech.slu.Intent;
+import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
 import com.amazon.speech.speechlet.Session;
@@ -40,7 +41,6 @@ import com.amazon.speech.speechlet.SpeechletRequest;
 import com.amazon.speech.speechlet.User;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
-import com.amazon.speech.ui.SsmlOutputSpeech;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT, classes=ConferenceSkill.class)
@@ -53,34 +53,52 @@ public class ConferenceSkillTests {
 			"Hello, and welcome to DevNexus! Thank you for attending Craig's session. "
 			+ "I hope you enjoy it!\n";
 	
+	private static String HOKEY_POKEY_MESSAGE =
+			"You put your elbow in. You put your elbow out. You put your elbow in, "
+			+ "and you shake it all about. You do the hokey-pokey and turn yourself around. "
+			+ "That's what it's all about.\n";
+	
 	@Test
 	public void shouldSayHelloThroughRequestDispatcher() throws Exception {
-		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelloIntentRequest();
+		SpeechletRequestEnvelope<IntentRequest> requestEnv = buildHelloIntentRequest();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<SpeechletRequestEnvelope<SpeechletRequest>> requestEntity = new HttpEntity<SpeechletRequestEnvelope<SpeechletRequest>>(requestEnv, headers);
+		HttpEntity<SpeechletRequestEnvelope<IntentRequest>> requestEntity = new HttpEntity<SpeechletRequestEnvelope<IntentRequest>>(requestEnv, headers);
 		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/_requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
 		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
-		assertEquals("Hello", card.getTitle());
+		assertEquals("Welcome", card.getTitle());
 		assertEquals(HELLO_MESSAGE, card.getContent());
-		SsmlOutputSpeech outputSpeech = (SsmlOutputSpeech) responseEnv.getResponse().getOutputSpeech();
-		assertEquals("hello", outputSpeech.getId());
-		assertEquals("<speak>" + HELLO_MESSAGE + "</speak>", outputSpeech.getSsml());
+		PlainTextOutputSpeech outputSpeech = (PlainTextOutputSpeech) responseEnv.getResponse().getOutputSpeech();
+		assertEquals(HELLO_MESSAGE, outputSpeech.getText());
 	}
+	
+	@Test
+	public void shouldDoHokeyPokeyThroughRequestDispatcher() throws Exception {
+		SpeechletRequestEnvelope<IntentRequest> requestEnv = buildHokeyPokeyIntentRequest();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<SpeechletRequestEnvelope<IntentRequest>> requestEntity = new HttpEntity<SpeechletRequestEnvelope<IntentRequest>>(requestEnv, headers);
+		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/_requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
+		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
+		assertEquals("Hokey Pokey", card.getTitle());
+		assertEquals(HOKEY_POKEY_MESSAGE, card.getContent());
+		PlainTextOutputSpeech outputSpeech = (PlainTextOutputSpeech) responseEnv.getResponse().getOutputSpeech();
+		assertEquals(HOKEY_POKEY_MESSAGE, outputSpeech.getText());
+	}
+
 
 	@Test
 	public void shouldHandleHelpIntentThroughRequestDispatcher() throws Exception {
-		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelpIntentRequest();
+		SpeechletRequestEnvelope<IntentRequest> requestEnv = buildHelpIntentRequest();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<SpeechletRequestEnvelope<SpeechletRequest>> requestEntity = new HttpEntity<SpeechletRequestEnvelope<SpeechletRequest>>(requestEnv, headers);
+		HttpEntity<SpeechletRequestEnvelope<IntentRequest>> requestEntity = new HttpEntity<SpeechletRequestEnvelope<IntentRequest>>(requestEnv, headers);
 		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/_requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
 		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
 		assertEquals("Hello Help", card.getTitle());
 		assertEquals("Just ask me to say hello", card.getContent());
-		SsmlOutputSpeech outputSpeech = (SsmlOutputSpeech) responseEnv.getResponse().getOutputSpeech();
-		assertEquals("hello_help", outputSpeech.getId());
-		assertEquals("<speak>Just ask me to say hello</speak>", outputSpeech.getSsml());
+		PlainTextOutputSpeech outputSpeech = (PlainTextOutputSpeech) responseEnv.getResponse().getOutputSpeech();
+		assertEquals("Just ask me to say hello", outputSpeech.getText());
 	}
 	
 	@Test
@@ -94,11 +112,10 @@ public class ConferenceSkillTests {
 		assertEquals("Welcome to DevNexus", card.getTitle());
 		assertEquals(HELLO_MESSAGE, card.getContent());
 		PlainTextOutputSpeech outputSpeech = (PlainTextOutputSpeech) responseEnv.getResponse().getOutputSpeech();
-		assertEquals("devnexus_welcome", outputSpeech.getId());
 		assertEquals(HELLO_MESSAGE, outputSpeech.getText());
 	}
 
-	private SpeechletRequestEnvelope<SpeechletRequest> buildHelloIntentRequest() {
+	private SpeechletRequestEnvelope<IntentRequest> buildHelloIntentRequest() {
 		Intent intent = Intent.builder()
 			.withName("SayHello")
 			.build();
@@ -114,14 +131,38 @@ public class ConferenceSkillTests {
 			.withUser(User.builder().withUserId("habuma").build())
 			.build();
 		
-		return SpeechletRequestEnvelope.builder()
+		return SpeechletRequestEnvelope.<IntentRequest>builder()
 			.withRequest(intentRequest)
 			.withSession(session)
 			.withVersion("1.0")
 			.build();
 	}
 	
-	private SpeechletRequestEnvelope<SpeechletRequest> buildHelpIntentRequest() {
+	private SpeechletRequestEnvelope<IntentRequest> buildHokeyPokeyIntentRequest() {
+		Intent intent = Intent.builder()
+			.withName("HokeyPokey")
+			.withSlot(Slot.builder().withName("Part").withValue("elbow").build())
+			.build();
+		
+		IntentRequest intentRequest = IntentRequest.builder()
+			.withIntent(intent)
+			.withRequestId("hokey_pokey_request")
+			.withTimestamp(new Date())
+			.build();
+		
+		Session session = Session.builder()
+			.withSessionId("hokey_pokey_session_1")
+			.withUser(User.builder().withUserId("habuma").build())
+			.build();
+		
+		return SpeechletRequestEnvelope.<IntentRequest>builder()
+			.withRequest(intentRequest)
+			.withSession(session)
+			.withVersion("1.0")
+			.build();
+	}
+	
+	private SpeechletRequestEnvelope<IntentRequest> buildHelpIntentRequest() {
 		Intent intent = Intent.builder()
 			.withName("AMAZON.HelpIntent")
 			.build();
@@ -137,7 +178,7 @@ public class ConferenceSkillTests {
 			.withUser(User.builder().withUserId("habuma").build())
 			.build();
 		
-		return SpeechletRequestEnvelope.builder()
+		return SpeechletRequestEnvelope.<IntentRequest>builder()
 			.withRequest(intentRequest)
 			.withSession(session)
 			.withVersion("1.0")

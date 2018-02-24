@@ -57,7 +57,7 @@ public class IntentDispatcher implements ApplicationContextAware {
 		this.spring = spring;
 	}
 
-	public SpeechletResponseEnvelope handleIntentRequest(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope) {
+	public SpeechletResponseEnvelope handleIntentRequest(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
 		String requestId = requestEnvelope.getRequest().getRequestId();
 		String sessionId = requestEnvelope.getSession().getSessionId();
 		String userId = requestEnvelope.getSession().getUser().getUserId();

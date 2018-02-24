@@ -72,6 +72,13 @@ public class SpringSkillsTestHelpers {
 		return session;
 	}
 	
+	public static SpeechletRequestEnvelope<IntentRequest> buildTestIntentRequestEnvelope(IntentRequest request, Session session) {
+		return SpeechletRequestEnvelope.<IntentRequest>builder()
+					.withRequest(request)
+					.withSession(session)
+					.build();
+	}
+
 	public static SpeechletRequestEnvelope<SpeechletRequest> buildTestRequestEnvelope(SpeechletRequest request, Session session) {
 		return SpeechletRequestEnvelope.builder()
 					.withRequest(request)

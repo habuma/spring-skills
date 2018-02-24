@@ -27,7 +27,7 @@ import com.amazon.speech.ui.SimpleCard;
 public class DefaultUnknownRequestHandler implements UnknownRequestHandler {
 
 	@Override
-	public SpeechletResponseEnvelope handleUnknownRequest(SpeechletRequestEnvelope<SpeechletRequest> t) {
+	public SpeechletResponseEnvelope handleUnknownRequest(SpeechletRequestEnvelope<? extends SpeechletRequest> t) {
 		PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
 		outputSpeech.setText("There was an error: Unknown request type.");
 

@@ -17,10 +17,10 @@ package spring.skills.handler;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
-import com.amazon.speech.speechlet.SpeechletRequest;
+import com.amazon.speech.speechlet.LaunchRequest;
 
 public interface LaunchRequestHandler {
 
-	SpeechletResponseEnvelope handleLaunchRequest(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope);
+	SpeechletResponseEnvelope handleLaunchRequest(SpeechletRequestEnvelope<LaunchRequest> requestEnvelope);
 	
 }

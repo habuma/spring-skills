@@ -16,7 +16,6 @@
 package spring.skills;
 
 import static org.junit.Assert.assertEquals;
-import static spring.skills.SpringSkillsTestHelpers.buildTestRequestEnvelope;
 import static spring.skills.SpringSkillsTestHelpers.buildTestSession;
 
 import java.util.Date;
@@ -34,7 +33,6 @@ import com.amazon.speech.json.SpeechletResponseEnvelope;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.Session;
-import com.amazon.speech.speechlet.SpeechletRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
@@ -119,15 +117,15 @@ public class IntentDispatcherTests {
 	//
 	// private test helpers
 	//
-	private SpeechletRequestEnvelope<SpeechletRequest> getIntentRequestEnvelope(Intent intent) {
-		SpeechletRequest request = 
+	private SpeechletRequestEnvelope<IntentRequest> getIntentRequestEnvelope(Intent intent) {
+		IntentRequest request = 
 				IntentRequest.builder()
 					.withIntent(intent)
 					.withRequestId("request_1")
 					.withTimestamp(new Date())
 					.build();
 		Session session = buildTestSession();
-		return buildTestRequestEnvelope(request, session);
+		return SpringSkillsTestHelpers.buildTestIntentRequestEnvelope(request, session);
 	}	
 
 	//

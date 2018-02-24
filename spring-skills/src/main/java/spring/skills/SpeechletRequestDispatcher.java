@@ -63,7 +63,7 @@ public class SpeechletRequestDispatcher {
 		this.unknownRequestHandler = unknownRequestHandler;
 	}
 	
-	public SpeechletResponseEnvelope handle(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope) {
+	public SpeechletResponseEnvelope handle(SpeechletRequestEnvelope<? extends SpeechletRequest> requestEnvelope) {
 		String requestId = requestEnvelope.getRequest().getRequestId();
 		String sessionId = requestEnvelope.getSession().getSessionId();
 		String userId = requestEnvelope.getSession().getUser().getUserId();
@@ -75,17 +75,23 @@ public class SpeechletRequestDispatcher {
 		if (request instanceof IntentRequest) {
 			IntentRequest intentRequest = (IntentRequest) request;
 			logger.info("Handling intent request. ID=" + intentRequest.getRequestId());
-			return intentDispatcher.handleIntentRequest(requestEnvelope);
+			@SuppressWarnings("unchecked")
+			SpeechletRequestEnvelope<IntentRequest> intentRequestEnvelope = (SpeechletRequestEnvelope<IntentRequest>) requestEnvelope;
+			return intentDispatcher.handleIntentRequest(intentRequestEnvelope);
 		} else if (request instanceof LaunchRequest) {
-			LaunchRequest launchRequest = (LaunchRequest) request;
+			@SuppressWarnings("unchecked")
+			SpeechletRequestEnvelope<LaunchRequest> launchRequestEnvelope = (SpeechletRequestEnvelope<LaunchRequest>) requestEnvelope;
+			LaunchRequest launchRequest = launchRequestEnvelope.getRequest();
 			logger.info("Handling launch request. ID=" + launchRequest.getRequestId());
-			return launchRequestHandler.handleLaunchRequest(requestEnvelope);
+			return launchRequestHandler.handleLaunchRequest(launchRequestEnvelope);
 		} else if (request instanceof SessionEndedRequest) {
-			SessionEndedRequest sessionEndRequest = (SessionEndedRequest) request;
+			@SuppressWarnings("unchecked")
+			SpeechletRequestEnvelope<SessionEndedRequest> sessionEndedRequestEnvelope = (SpeechletRequestEnvelope<SessionEndedRequest>) requestEnvelope;
+			SessionEndedRequest sessionEndRequest = sessionEndedRequestEnvelope.getRequest();
 			Reason reason = sessionEndRequest.getReason();
 			logger.info("Handling session end request. ID=" + sessionEndRequest.getRequestId()
 					+ ", REASON: " + reason);
-			return sessionEndedRequestHandler.handleSessionEndedRequest(requestEnvelope);
+			return sessionEndedRequestHandler.handleSessionEndedRequest(sessionEndedRequestEnvelope);
 		}
 		
 		logger.warning("Unknown request type: " + request.getClass().getName());
