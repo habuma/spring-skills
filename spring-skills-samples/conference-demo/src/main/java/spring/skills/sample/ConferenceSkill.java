@@ -29,6 +29,7 @@ import com.amazon.speech.json.SpeechletResponseEnvelope;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.IntentRequest;
+import com.amazon.speech.speechlet.SpeechletRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
@@ -37,19 +38,19 @@ import com.amazon.speech.ui.SsmlOutputSpeech;
 import spring.skills.handler.LaunchRequestHandler;
 
 @SpringBootApplication
-public class HelloApplication {
+public class ConferenceSkill {
 
-	Logger log = LoggerFactory.getLogger(HelloApplication.class);
+	Logger log = LoggerFactory.getLogger(ConferenceSkill.class);
 	
 	public static void main(String[] args) {
-		SpringApplication.run(HelloApplication.class, args);
+		SpringApplication.run(ConferenceSkill.class, args);
 	}
 	
 	@Autowired
-	private HelloProps props;
+	private ConferenceSkillProps props;
 	
 	@Bean
-	public Function<SpeechletRequestEnvelope, SpeechletResponseEnvelope> sayHello() {
+	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> sayHello() {
 		return (requestEnv) -> {
 			SpeechletResponseEnvelope responseEnv = new SpeechletResponseEnvelope();
 			SpeechletResponse response = new SpeechletResponse();
@@ -67,7 +68,7 @@ public class HelloApplication {
 	}
 	
 	@Bean
-	public Function<SpeechletRequestEnvelope, SpeechletResponseEnvelope> hokeyPokey() {
+	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> hokeyPokey() {
 		return (requestEnv) -> {
 			IntentRequest request = (IntentRequest) requestEnv.getRequest();
 			Intent intent = request.getIntent();
@@ -92,7 +93,7 @@ public class HelloApplication {
 	}
 	
 	@Bean
-	public Function<SpeechletRequestEnvelope, SpeechletResponseEnvelope> help() {
+	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> help() {
 		return (requestEnv) -> {
 			SpeechletResponseEnvelope responseEnv = new SpeechletResponseEnvelope();
 			SpeechletResponse response = new SpeechletResponse();
@@ -114,7 +115,7 @@ public class HelloApplication {
 		return new LaunchRequestHandler() {
 			
 			@Override
-			public SpeechletResponseEnvelope handleLaunchRequest(SpeechletRequestEnvelope requestEnvelope) {
+			public SpeechletResponseEnvelope handleLaunchRequest(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope) {
 				SpeechletResponseEnvelope responseEnvelope = new SpeechletResponseEnvelope();
 				SpeechletResponse response = new SpeechletResponse();
 				SimpleCard card = new SimpleCard();
@@ -125,7 +126,6 @@ public class HelloApplication {
 				outputSpeech.setId("devnexus_welcome");
 				outputSpeech.setText(props.getMessage());
 				response.setOutputSpeech(outputSpeech);
-				response.setShouldEndSession(false);
 				responseEnvelope.setResponse(response);
 				return responseEnvelope;
 			}

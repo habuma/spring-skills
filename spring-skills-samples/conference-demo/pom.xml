@@ -4,12 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>spring.skills</groupId>
-	<artifactId>devnexus</artifactId>
+	<artifactId>conference-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>devnexus</name>
-	<description>Sample Spring Skills Project for DevNexus 2018</description>
+	<name>conference-demo</name>
+	<description>Sample Spring Skills Project for use at conference presentations. 
+				First presented at DevNexus 2018.</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -44,6 +45,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 

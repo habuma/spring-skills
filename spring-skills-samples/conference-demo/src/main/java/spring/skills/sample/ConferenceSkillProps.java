@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix="skills.hello")
-public class HelloProps {
+public class ConferenceSkillProps {
 
 	private String message;
 	
