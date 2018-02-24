@@ -22,7 +22,6 @@ import static spring.skills.SpringSkillsTestHelpers.getLaunchRequest;
 import static spring.skills.SpringSkillsTestHelpers.getSessionEndedRequest;
 
 import java.util.HashMap;
-import java.util.function.Function;
 
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -31,15 +30,14 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
 import com.amazon.speech.slu.Intent;
-import com.amazon.speech.speechlet.SpeechletRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
 
 import spring.skills.autoconfig.SpringSkillsAutoConfiguration;
+import spring.skills.handler.IntentRequestHandler;
 import spring.skills.handler.LaunchRequestHandler;
 import spring.skills.handler.SessionEndedRequestHandler;
 import spring.skills.handler.UnknownRequestHandler;
@@ -155,7 +153,7 @@ public class SpeechletRequestDispatcherTests {
   	public static class CustomSpringSkillConfiguration {
 		
 		@Bean
-		public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> hello() {
+		public IntentRequestHandler hello() {
 			return (requestEnvelope) -> {
 				SpeechletResponseEnvelope responseEnvelope = new SpeechletResponseEnvelope();
 				SpeechletResponse response = new SpeechletResponse();

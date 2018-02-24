@@ -48,17 +48,6 @@ public class HelloSkillTests {
 	TestRestTemplate testRest;
 	
 	@Test
-	public void shouldSayHello() {
-		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelloIntentRequest();
-		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/sayHello", requestEnv, SpeechletResponseEnvelope.class);
-		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
-		assertEquals("Hello", card.getTitle());
-		assertEquals("Hello Spring World!", card.getContent());
-		PlainTextOutputSpeech outputSpeech = (PlainTextOutputSpeech) responseEnv.getResponse().getOutputSpeech();
-		assertEquals("Hello Spring World!", outputSpeech.getText());
-	}
-	
-	@Test
 	public void shouldSayHelloThroughRequestDispatcher() throws Exception {
 		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelloIntentRequest();
         HttpHeaders headers = new HttpHeaders();

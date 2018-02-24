@@ -13,33 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package spring.skills.sample;
+package spring.skills.handler;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import com.amazon.speech.json.SpeechletRequestEnvelope;
+import com.amazon.speech.json.SpeechletResponseEnvelope;
+import com.amazon.speech.speechlet.SpeechletRequest;
 
-@Component
-@ConfigurationProperties(prefix="skills.hello")
-public class ConferenceSkillProps {
+public interface IntentRequestHandler {
 
-	private String message;
-	
-	private String hokey;
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public String getHokey() {
-		return hokey;
-	}
-
-	public void setHokey(String hokey) {
-		this.hokey = hokey;
-	}
+	SpeechletResponseEnvelope handleIntentRequest(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope);
 	
 }

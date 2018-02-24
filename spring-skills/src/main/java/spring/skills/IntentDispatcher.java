@@ -15,7 +15,6 @@
  */
 package spring.skills;
 
-import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +29,7 @@ import com.amazon.speech.json.SpeechletResponseEnvelope;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.SpeechletRequest;
 
+import spring.skills.handler.IntentRequestHandler;
 import spring.skills.handler.UnknownIntentHandler;
 
 public class IntentDispatcher implements ApplicationContextAware {
@@ -70,9 +70,8 @@ public class IntentDispatcher implements ApplicationContextAware {
 		String intentBeanName = getIntentBeanName(intentName);
 		logger.info("Handling intent request for intent: " + intentName);
 		try {
-			@SuppressWarnings("unchecked")
-			Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> intentFunction = spring.getBean(intentBeanName, Function.class);
-			return intentFunction.apply(requestEnvelope);
+			IntentRequestHandler intentHandler = spring.getBean(intentBeanName, IntentRequestHandler.class);
+			return intentHandler.handleIntentRequest(requestEnvelope);
 		} catch (NoSuchBeanDefinitionException nsbe) {
 			String errorMessage = "No bean " + intentBeanName + " found for intent " + intentName + ".";
 			logger.log(Level.WARNING, errorMessage);

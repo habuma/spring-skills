@@ -15,17 +15,12 @@
  */
 package spring.skills.sample;
 
-import java.util.function.Function;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.amazon.speech.json.SpeechletRequestEnvelope;
-import com.amazon.speech.json.SpeechletResponseEnvelope;
-import com.amazon.speech.speechlet.SpeechletRequest;
-
 import spring.skills.SpeechletResponseEnvelopeBuilder;
+import spring.skills.handler.IntentRequestHandler;
 
 @SpringBootApplication
 public class HelloSkill {
@@ -35,7 +30,7 @@ public class HelloSkill {
 	}
 	
 	@Bean
-	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> sayHello() {
+	public IntentRequestHandler sayHello() {
 		return (requestEnv) -> {
 			return SpeechletResponseEnvelopeBuilder
 						.withPlainText("Hello Spring World!")
@@ -45,7 +40,7 @@ public class HelloSkill {
 	}
 	
 	@Bean
-	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> help() {
+	public IntentRequestHandler help() {
 		return (requestEnv) -> {
 			return SpeechletResponseEnvelopeBuilder
 					.withPlainText("Just ask me to say hello")

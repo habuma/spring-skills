@@ -21,7 +21,6 @@ import static spring.skills.SpringSkillsTestHelpers.buildTestSession;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.function.Function;
 
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -41,6 +40,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
 
 import spring.skills.autoconfig.SpringSkillsAutoConfiguration;
+import spring.skills.handler.IntentRequestHandler;
 import spring.skills.handler.UnknownIntentHandler;
 
 public class IntentDispatcherTests {
@@ -136,7 +136,7 @@ public class IntentDispatcherTests {
 	@Configuration
 	public static class IntentTestConfiguration {
 		@Bean(name={"say_hello", "sayHello"})
-		public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> say_hello() {
+		public IntentRequestHandler say_hello() {
 			return (req) -> {
 				SpeechletResponseEnvelope responseEnv = new SpeechletResponseEnvelope();
 				SpeechletResponse response = new SpeechletResponse();

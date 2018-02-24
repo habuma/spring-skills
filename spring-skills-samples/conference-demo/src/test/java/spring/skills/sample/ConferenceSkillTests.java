@@ -54,18 +54,6 @@ public class ConferenceSkillTests {
 			+ "I hope you enjoy it!\n";
 	
 	@Test
-	public void shouldSayHello() {
-		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelloIntentRequest();
-		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/sayHello", requestEnv, SpeechletResponseEnvelope.class);
-		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
-		assertEquals("Hello", card.getTitle());
-		assertEquals(HELLO_MESSAGE, card.getContent());
-		SsmlOutputSpeech outputSpeech = (SsmlOutputSpeech) responseEnv.getResponse().getOutputSpeech();
-		assertEquals("hello", outputSpeech.getId());
-		assertEquals("<speak>" + HELLO_MESSAGE + "</speak>", outputSpeech.getSsml());
-	}
-	
-	@Test
 	public void shouldSayHelloThroughRequestDispatcher() throws Exception {
 		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelloIntentRequest();
         HttpHeaders headers = new HttpHeaders();

@@ -15,8 +15,6 @@
  */
 package spring.skills.sample;
 
-import java.util.function.Function;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.SsmlOutputSpeech;
 
+import spring.skills.handler.IntentRequestHandler;
 import spring.skills.handler.LaunchRequestHandler;
 
 @SpringBootApplication
@@ -50,7 +49,7 @@ public class ConferenceSkill {
 	private ConferenceSkillProps props;
 	
 	@Bean
-	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> sayHello() {
+	public IntentRequestHandler sayHello() {
 		return (requestEnv) -> {
 			SpeechletResponseEnvelope responseEnv = new SpeechletResponseEnvelope();
 			SpeechletResponse response = new SpeechletResponse();
@@ -68,7 +67,7 @@ public class ConferenceSkill {
 	}
 	
 	@Bean
-	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> hokeyPokey() {
+	public IntentRequestHandler hokeyPokey() {
 		return (requestEnv) -> {
 			IntentRequest request = (IntentRequest) requestEnv.getRequest();
 			Intent intent = request.getIntent();
@@ -93,7 +92,7 @@ public class ConferenceSkill {
 	}
 	
 	@Bean
-	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> help() {
+	public IntentRequestHandler help() {
 		return (requestEnv) -> {
 			SpeechletResponseEnvelope responseEnv = new SpeechletResponseEnvelope();
 			SpeechletResponse response = new SpeechletResponse();
