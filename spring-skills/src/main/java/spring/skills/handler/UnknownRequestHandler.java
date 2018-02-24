@@ -17,9 +17,10 @@ package spring.skills.handler;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
+import com.amazon.speech.speechlet.SpeechletRequest;
 
 public interface UnknownRequestHandler {
 	
-	SpeechletResponseEnvelope handleUnknownRequest(SpeechletRequestEnvelope requestEnvelope);
+	SpeechletResponseEnvelope handleUnknownRequest(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope);
 
 }

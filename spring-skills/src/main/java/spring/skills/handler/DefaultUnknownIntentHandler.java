@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
+import com.amazon.speech.speechlet.SpeechletRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
@@ -26,7 +27,7 @@ import com.amazon.speech.ui.SimpleCard;
 public class DefaultUnknownIntentHandler implements UnknownIntentHandler {
 
 	@Override
-	public SpeechletResponseEnvelope apply(SpeechletRequestEnvelope requestEnvelope) {
+	public SpeechletResponseEnvelope apply(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope) {
 		PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
 		outputSpeech.setText("There was an error: Unknown intent.");
 		SimpleCard card = new SimpleCard();

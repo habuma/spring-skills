@@ -24,6 +24,7 @@ import org.springframework.context.annotation.PropertySource;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
+import com.amazon.speech.speechlet.SpeechletRequest;
 
 import spring.skills.IntentDispatcher;
 import spring.skills.SpeechletRequestDispatcher;
@@ -47,7 +48,7 @@ public class SpringSkillsAutoConfiguration {
 	}
 
 	@Bean
-	public Function<SpeechletRequestEnvelope, SpeechletResponseEnvelope> _requestDispatcher() {
+	public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> _requestDispatcher() {
 		return requestEnv -> {
 			return _speechletRequestDispatcher().handle(requestEnv);
 		};

@@ -4,6 +4,15 @@
       "intent": "SayHello"
     },
     {
+    	  "intent": "FavoriteColor",
+    	  "slots": [
+    	    {
+    	      "name": "Color",
+    	      "type": "LIST_OF_COLORS"
+    	    }
+    	  ]
+    },
+    {
       "intent": "AMAZON.HelpIntent"
     },
     {

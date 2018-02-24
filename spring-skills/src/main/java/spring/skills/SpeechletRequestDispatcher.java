@@ -25,12 +25,11 @@ import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
 import com.amazon.speech.speechlet.SessionEndedRequest;
 import com.amazon.speech.speechlet.SessionEndedRequest.Reason;
+import com.amazon.speech.speechlet.SpeechletRequest;
 
 import spring.skills.handler.LaunchRequestHandler;
 import spring.skills.handler.SessionEndedRequestHandler;
 import spring.skills.handler.UnknownRequestHandler;
-
-import com.amazon.speech.speechlet.SpeechletRequest;
 
 public class SpeechletRequestDispatcher {
 	
@@ -64,7 +63,7 @@ public class SpeechletRequestDispatcher {
 		this.unknownRequestHandler = unknownRequestHandler;
 	}
 	
-	public SpeechletResponseEnvelope handle(SpeechletRequestEnvelope requestEnvelope) {
+	public SpeechletResponseEnvelope handle(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope) {
 		String requestId = requestEnvelope.getRequest().getRequestId();
 		String sessionId = requestEnvelope.getSession().getSessionId();
 		String userId = requestEnvelope.getSession().getUser().getUserId();

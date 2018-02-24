@@ -35,60 +35,58 @@ import com.amazon.speech.json.SpeechletResponseEnvelope;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.Session;
+import com.amazon.speech.speechlet.SpeechletRequest;
 import com.amazon.speech.speechlet.User;
+import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
-import com.amazon.speech.ui.SsmlOutputSpeech;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT, classes=HelloApplication.class)
-public class HelloApplicationTests {
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT, classes=HelloSkill.class)
+public class HelloSkillTests {
 
 	@Autowired
 	TestRestTemplate testRest;
 	
 	@Test
 	public void shouldSayHello() {
-		SpeechletRequestEnvelope requestEnv = buildHelloIntentRequest();
+		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelloIntentRequest();
 		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/sayHello", requestEnv, SpeechletResponseEnvelope.class);
 		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
 		assertEquals("Hello", card.getTitle());
 		assertEquals("Hello Spring World!", card.getContent());
-		SsmlOutputSpeech outputSpeech = (SsmlOutputSpeech) responseEnv.getResponse().getOutputSpeech();
-		assertEquals("hello", outputSpeech.getId());
-		assertEquals("<speak>Hello Spring World!</speak>", outputSpeech.getSsml());
+		PlainTextOutputSpeech outputSpeech = (PlainTextOutputSpeech) responseEnv.getResponse().getOutputSpeech();
+		assertEquals("Hello Spring World!", outputSpeech.getText());
 	}
 	
 	@Test
 	public void shouldSayHelloThroughRequestDispatcher() throws Exception {
-		SpeechletRequestEnvelope requestEnv = buildHelloIntentRequest();
+		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelloIntentRequest();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<SpeechletRequestEnvelope> requestEntity = new HttpEntity<SpeechletRequestEnvelope>(requestEnv, headers);
+		HttpEntity<SpeechletRequestEnvelope<SpeechletRequest>> requestEntity = new HttpEntity<SpeechletRequestEnvelope<SpeechletRequest>>(requestEnv, headers);
 		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/_requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
 		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
 		assertEquals("Hello", card.getTitle());
 		assertEquals("Hello Spring World!", card.getContent());
-		SsmlOutputSpeech outputSpeech = (SsmlOutputSpeech) responseEnv.getResponse().getOutputSpeech();
-		assertEquals("hello", outputSpeech.getId());
-		assertEquals("<speak>Hello Spring World!</speak>", outputSpeech.getSsml());
+		PlainTextOutputSpeech outputSpeech = (PlainTextOutputSpeech) responseEnv.getResponse().getOutputSpeech();
+		assertEquals("Hello Spring World!", outputSpeech.getText());
 	}
 
 	@Test
 	public void shouldHandleHelpIntentThroughRequestDispatcher() throws Exception {
-		SpeechletRequestEnvelope requestEnv = buildHelpIntentRequest();
+		SpeechletRequestEnvelope<SpeechletRequest> requestEnv = buildHelpIntentRequest();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<SpeechletRequestEnvelope> requestEntity = new HttpEntity<SpeechletRequestEnvelope>(requestEnv, headers);
+		HttpEntity<SpeechletRequestEnvelope<SpeechletRequest>> requestEntity = new HttpEntity<SpeechletRequestEnvelope<SpeechletRequest>>(requestEnv, headers);
 		SpeechletResponseEnvelope responseEnv = testRest.postForObject("/_requestDispatcher", requestEntity, SpeechletResponseEnvelope.class);
 		SimpleCard card = (SimpleCard) responseEnv.getResponse().getCard();
 		assertEquals("Hello Help", card.getTitle());
 		assertEquals("Just ask me to say hello", card.getContent());
-		SsmlOutputSpeech outputSpeech = (SsmlOutputSpeech) responseEnv.getResponse().getOutputSpeech();
-		assertEquals("hello_help", outputSpeech.getId());
-		assertEquals("<speak>Just ask me to say hello</speak>", outputSpeech.getSsml());
+		PlainTextOutputSpeech outputSpeech = (PlainTextOutputSpeech) responseEnv.getResponse().getOutputSpeech();
+		assertEquals("Just ask me to say hello", outputSpeech.getText());
 	}
 
-	private SpeechletRequestEnvelope buildHelloIntentRequest() {
+	private SpeechletRequestEnvelope<SpeechletRequest> buildHelloIntentRequest() {
 		Intent intent = Intent.builder()
 			.withName("SayHello")
 			.build();
@@ -104,15 +102,14 @@ public class HelloApplicationTests {
 			.withUser(User.builder().withUserId("habuma").build())
 			.build();
 		
-		SpeechletRequestEnvelope requestEnv = SpeechletRequestEnvelope.builder()
+		return SpeechletRequestEnvelope.builder()
 			.withRequest(intentRequest)
 			.withSession(session)
 			.withVersion("1.0")
 			.build();
-		return requestEnv;
 	}
 	
-	private SpeechletRequestEnvelope buildHelpIntentRequest() {
+	private SpeechletRequestEnvelope<SpeechletRequest> buildHelpIntentRequest() {
 		Intent intent = Intent.builder()
 			.withName("AMAZON.HelpIntent")
 			.build();
@@ -128,11 +125,10 @@ public class HelloApplicationTests {
 			.withUser(User.builder().withUserId("habuma").build())
 			.build();
 		
-		SpeechletRequestEnvelope requestEnv = SpeechletRequestEnvelope.builder()
+		return SpeechletRequestEnvelope.builder()
 			.withRequest(intentRequest)
 			.withSession(session)
 			.withVersion("1.0")
 			.build();
-		return requestEnv;
 	}
 }

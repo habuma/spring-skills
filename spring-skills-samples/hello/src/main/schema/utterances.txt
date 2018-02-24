@@ -3,3 +3,4 @@ SayHello Speak hello
 SayHello Speak a greeting
 SayHello Say a greeting
 SayHello Greet me
+FavoriteColor My favorite color is {Color}

@@ -119,7 +119,7 @@ public class IntentDispatcherTests {
 	//
 	// private test helpers
 	//
-	private SpeechletRequestEnvelope getIntentRequestEnvelope(Intent intent) {
+	private SpeechletRequestEnvelope<SpeechletRequest> getIntentRequestEnvelope(Intent intent) {
 		SpeechletRequest request = 
 				IntentRequest.builder()
 					.withIntent(intent)
@@ -136,7 +136,7 @@ public class IntentDispatcherTests {
 	@Configuration
 	public static class IntentTestConfiguration {
 		@Bean(name={"say_hello", "sayHello"})
-		public Function<SpeechletRequestEnvelope, SpeechletResponseEnvelope> say_hello() {
+		public Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> say_hello() {
 			return (req) -> {
 				SpeechletResponseEnvelope responseEnv = new SpeechletResponseEnvelope();
 				SpeechletResponse response = new SpeechletResponse();

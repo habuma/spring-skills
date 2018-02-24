@@ -17,6 +17,7 @@ package spring.skills.handler;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.json.SpeechletResponseEnvelope;
+import com.amazon.speech.speechlet.SpeechletRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
@@ -24,7 +25,7 @@ import com.amazon.speech.ui.SimpleCard;
 public class DefaultLaunchRequestHandler implements LaunchRequestHandler {
 
 	@Override
-	public SpeechletResponseEnvelope handleLaunchRequest(SpeechletRequestEnvelope requestEnvelope) {
+	public SpeechletResponseEnvelope handleLaunchRequest(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope) {
 		SpeechletResponseEnvelope responseEnvelope = new SpeechletResponseEnvelope();
 		SpeechletResponse response = new SpeechletResponse();
 		SimpleCard card = new SimpleCard();

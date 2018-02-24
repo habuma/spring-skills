@@ -57,7 +57,7 @@ public class IntentDispatcher implements ApplicationContextAware {
 		this.spring = spring;
 	}
 
-	public SpeechletResponseEnvelope handleIntentRequest(SpeechletRequestEnvelope requestEnvelope) {
+	public SpeechletResponseEnvelope handleIntentRequest(SpeechletRequestEnvelope<SpeechletRequest> requestEnvelope) {
 		String requestId = requestEnvelope.getRequest().getRequestId();
 		String sessionId = requestEnvelope.getSession().getSessionId();
 		String userId = requestEnvelope.getSession().getUser().getUserId();
@@ -71,7 +71,7 @@ public class IntentDispatcher implements ApplicationContextAware {
 		logger.info("Handling intent request for intent: " + intentName);
 		try {
 			@SuppressWarnings("unchecked")
-			Function<SpeechletRequestEnvelope, SpeechletResponseEnvelope> intentFunction = spring.getBean(intentBeanName, Function.class);
+			Function<SpeechletRequestEnvelope<SpeechletRequest>, SpeechletResponseEnvelope> intentFunction = spring.getBean(intentBeanName, Function.class);
 			return intentFunction.apply(requestEnvelope);
 		} catch (NoSuchBeanDefinitionException nsbe) {
 			String errorMessage = "No bean " + intentBeanName + " found for intent " + intentName + ".";
