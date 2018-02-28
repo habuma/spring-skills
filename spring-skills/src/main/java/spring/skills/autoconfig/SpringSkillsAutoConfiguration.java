@@ -16,6 +16,7 @@
 package spring.skills.autoconfig;
 
 import java.util.function.Function;
+import java.util.logging.Logger;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -42,6 +43,8 @@ import spring.skills.handler.UnknownRequestHandler;
 @PropertySource("classpath:spring/skills/autoconfig/skills.properties")
 public class SpringSkillsAutoConfiguration {
 	
+	private static Logger logger = Logger.getLogger(SpringSkillsAutoConfiguration.class.getName());
+
 	@Bean
 	public SpringSkillsProperties springSkillsProperties() {
 		return new SpringSkillsProperties();

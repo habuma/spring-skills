@@ -29,7 +29,7 @@ import spring.skills.handler.LaunchRequestHandler;
 @SpringBootApplication
 public class ConferenceSkill {
 
-	Logger log = LoggerFactory.getLogger(ConferenceSkill.class);
+	private static Logger log = LoggerFactory.getLogger(ConferenceSkill.class);
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ConferenceSkill.class, args);
