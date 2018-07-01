@@ -1,0 +1,7 @@
+= Spring Skills Attic
+
+The only constant is change.
+
+After my original attempt at creating Spring Skills, I learned a few things, reconsidered some prior decisions, and decided to take another go at it. At the same time, Amazon's Alexa Skills Kit evolved from version 1.8.1 to 2.0.0 (and 2.3.4 as I write this) with its own set of significant breaking changes.
+
+Therefore, I'm retiring my original attempt at Spring Skills to the attic, keeping it around for posterity. And I've already begun on a new attempt at Spring Skills which will take the place of the original project going forward.
