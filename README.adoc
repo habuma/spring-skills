@@ -1,10 +1,17 @@
 = Spring Skills
 
-Enables development of Alexa voice interface skills with Spring, Spring Boot, and Spring Cloud Function.
+Enables development of Alexa voice interface skills with Spring and Spring Boot.
+
+The original, Spring Cloud Function-based version of Spring Skills has moved into `/attic`.
+What you'll find here is a (work-in-progress) attempt at a reimagined Spring Skills that
+is controller-based, allowing Spring Skills-enabled apps to be hosted anywhere (such as
+run.pivotal.io) and (eventually) handle requests from both Alexa and Google Assistant. (At
+the moment, I'm focusing on supporting Alexa...Google Assistant comes later.)
+
 
 == Disclaimer
 
 At this time, this project is only an experiment and should not be considered an official project of the
 Spring portfolio, nor should there be any expectation of support from the Spring team or Pivotal Software.
 While I welcome suggestions, pull-requests, and bug reports, I cannot offer any promises with regard to
-service-level. 
+service-level.

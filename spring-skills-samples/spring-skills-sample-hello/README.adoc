@@ -1,0 +1,13 @@
+= spring-skills-sample-hello
+
+This is a simple "Hello world" skill that uses Spring Skills.
+
+This is still a work in progress and does not yet quite work. That's because spring-skills-alexa does not yet handle a session-ended request.
+
+== Deploying for Alexa
+
+TBD
+
+== Deploying for Google Assistant
+
+TBD

@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "sessionAttributes": {},
+  "response": {
+    "outputSpeech": {
+      "type": "SSML",
+      "ssml": "<speak>Hello</speak>"
+    },
+    "card": {
+      "type": "Standard",
+      "title": "Hello",
+      "text": "Well, hello there"
+    },
+    "shouldEndSession": true
+  }
+}
