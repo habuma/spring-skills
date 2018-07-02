@@ -54,7 +54,6 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 			IntentSpeechRequest intentRequest = (IntentSpeechRequest) request;
 			String intentName = intentRequest.getIntentName();
 			String beanName = getIntentBeanName(intentName);
-			System.out.println("BEAN NAME:  " + beanName);
 			try {
 				SpeechRequestHandler handler = context.getBean(beanName, SpeechRequestHandler.class);
 				return handler.handle(request);

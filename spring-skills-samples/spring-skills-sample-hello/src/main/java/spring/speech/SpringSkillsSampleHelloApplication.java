@@ -40,6 +40,7 @@ public class SpringSkillsSampleHelloApplication {
 				
 				SpeechCard card = new SpeechCard("Hello", "Well, hello there");
 				SpeechResponse response = new SpeechResponse(speech, card);
+				response.setEndSession(false);
 				
 				return response;
 			}

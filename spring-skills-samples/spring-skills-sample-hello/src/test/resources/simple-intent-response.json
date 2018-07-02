@@ -11,6 +11,6 @@
       "title": "Hello",
       "text": "Well, hello there"
     },
-    "shouldEndSession": true
+    "shouldEndSession": false
   }
 }
