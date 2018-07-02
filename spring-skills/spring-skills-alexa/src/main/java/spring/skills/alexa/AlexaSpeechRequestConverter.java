@@ -34,6 +34,7 @@ import com.amazon.ask.model.ui.SsmlOutputSpeech;
 import com.amazon.ask.model.ui.StandardCard;
 import com.amazon.ask.model.ui.StandardCard.Builder;
 
+import spring.skills.core.BuiltInIntents;
 import spring.skills.core.IntentSpeechRequest;
 import spring.skills.core.Parameter;
 import spring.skills.core.SpeechCard;
@@ -67,7 +68,7 @@ public class AlexaSpeechRequestConverter
 			// DialogState dialogState = intentRequest.getDialogState();
 			
 			Intent intent = intentRequest.getIntent();
-			String intentName = intent.getName();
+			String intentName = neutralizeBuiltInIntentNames(intent.getName());
 			IntentSpeechRequest intentSpeechRequest = new IntentSpeechRequest(intentName, requestId, timestamp, locale);
 			
 			// TODO: Decide how to handle confirmation status
@@ -143,6 +144,17 @@ public class AlexaSpeechRequestConverter
 			imageBuilder.withSmallImageUrl(speechCard.getSmallImageUrl());
 		}
 		return imageBuilder.build();
+	}
+	
+	private String neutralizeBuiltInIntentNames(String intentName) {
+		if (intentName.equals(AlexaBuiltInIntents.HELP_INTENT)) {
+			intentName = BuiltInIntents.HELP_INTENT;
+		} else if (intentName.equals(AlexaBuiltInIntents.STOP_INTENT)) {
+			intentName = BuiltInIntents.STOP_INTENT;
+		} else if (intentName.equals(AlexaBuiltInIntents.CANCEL_INTENT)) {
+			intentName = BuiltInIntents.CANCEL_INTENT;
+		}
+		return intentName;
 	}
 	
 }

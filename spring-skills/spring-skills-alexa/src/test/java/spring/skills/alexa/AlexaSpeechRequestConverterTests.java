@@ -35,6 +35,7 @@ import com.amazon.ask.model.Slot;
 import com.amazon.ask.model.ui.SsmlOutputSpeech;
 import com.amazon.ask.model.ui.StandardCard;
 
+import spring.skills.core.BuiltInIntents;
 import spring.skills.core.IntentSpeechRequest;
 import spring.skills.core.Speech;
 import spring.skills.core.SpeechCard;
@@ -42,6 +43,43 @@ import spring.skills.core.SpeechRequest;
 import spring.skills.core.SpeechResponse;
 
 public class AlexaSpeechRequestConverterTests {
+	
+	@Test
+	public void shouldConvertAlexaBuiltInIntentsToPlatformNeutralIntents() {
+		AlexaSpeechRequestConverter converter = new AlexaSpeechRequestConverter();
+
+		RequestEnvelope helpRequestEnvelope = buildIntentRequestEnvelope(AlexaBuiltInIntents.HELP_INTENT);
+		IntentSpeechRequest helpSpeechRequest = (IntentSpeechRequest) converter.toSpeechRequest(helpRequestEnvelope);
+		assertEquals(BuiltInIntents.HELP_INTENT, helpSpeechRequest.getIntentName());
+
+		RequestEnvelope stopRequestEnvelope = buildIntentRequestEnvelope(AlexaBuiltInIntents.STOP_INTENT);
+		IntentSpeechRequest stopSpeechRequest = (IntentSpeechRequest) converter.toSpeechRequest(stopRequestEnvelope);
+		assertEquals(BuiltInIntents.STOP_INTENT, stopSpeechRequest.getIntentName());
+
+		RequestEnvelope cancelRequestEnvelope = buildIntentRequestEnvelope(AlexaBuiltInIntents.CANCEL_INTENT);
+		IntentSpeechRequest cancelSpeechRequest = (IntentSpeechRequest) converter.toSpeechRequest(cancelRequestEnvelope);
+		assertEquals(BuiltInIntents.CANCEL_INTENT, cancelSpeechRequest.getIntentName());
+	}
+
+	private RequestEnvelope buildIntentRequestEnvelope(String intentName) {
+		Intent intent = Intent.builder()
+			.withName(intentName)
+			.build();
+		
+		OffsetDateTime timestamp = OffsetDateTime.of(2018, 7, 15, 12, 0, 0, 0, ZoneOffset.UTC);
+		IntentRequest request = IntentRequest.builder()
+			.withRequestId("request-1")
+			.withTimestamp(timestamp)
+			.withLocale("en-US")
+			.withIntent(intent)
+			.build();
+		
+		RequestEnvelope envelope = RequestEnvelope.builder()
+			.withRequest(request)
+			.withVersion("1.0")
+			.build();
+		return envelope;
+	}
 	
 	@Test
 	public void shouldConvertRequestEnvelopeToSpeechRequest() {
