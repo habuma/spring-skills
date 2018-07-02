@@ -40,7 +40,7 @@ public class HelloSkillTests {
 	TestRestTemplate rest;
 	
 	@Test
-	public void testStuff() throws IOException, JSONException {
+	public void testSimpleIntentRequest() throws IOException, JSONException {
 		String intentRequestJSON = readToString("/simple-intent-request.json");
 		String expectedResponseJSON = readToString("/simple-intent-response.json");
 		HttpHeaders headers = new HttpHeaders();
