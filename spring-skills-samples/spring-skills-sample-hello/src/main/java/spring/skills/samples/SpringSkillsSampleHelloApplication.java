@@ -95,7 +95,7 @@ public class SpringSkillsSampleHelloApplication {
 	
 	@Bean
 	public AlexaIntentController alexaController() {
-		return new AlexaIntentController(converter(), dispatcher());
+		return new AlexaIntentController(dispatcher());
 	}
 	
 }
