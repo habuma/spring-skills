@@ -41,6 +41,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * </p>
  * 
  * <p>
+ * Also configures a Jackson {@link ObjectMapper} with a custom mixin for
+ * ASK types so that null values aren't included in serialized responses.
+ * </p>
+ * 
+ * <p>
  * See <a href=
  * "https://developer.amazon.com/docs/custom-skills/host-a-custom-skill-as-a-web-service.html#verifying-that-the-request-was-sent-by-alexa">
  * Amazon documentation regarding request verification</a>.
@@ -49,7 +54,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Craig Walls
  */
 @Configuration
-public class AlexaArgumentResolverConfig implements WebMvcConfigurer {
+public class AlexaWebConfig implements WebMvcConfigurer {
 
 	@Autowired(required=false)
 	private SkillServletVerifier signatureVerifier;
