@@ -70,11 +70,11 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 	}
 
 	private String getIntentBeanName(String intentName) {
-		if (intentName.equals("AMAZON.HelpIntent")) {
+		if (intentName.equals(BuiltInIntents.HELP_INTENT)) {
 			return props.getHelpIntentBeanName();
-		} else if (intentName.equals("AMAZON.StopIntent")) {
+		} else if (intentName.equals(BuiltInIntents.STOP_INTENT)) {
 			return props.getStopIntentBeanName();
-		} else if (intentName.equals("AMAZON.CancelIntent")) {
+		} else if (intentName.equals(BuiltInIntents.CANCEL_INTENT)) {
 			return props.getCancelIntentBeanName();
 		}
 		return beanifyIntentName(intentName);
