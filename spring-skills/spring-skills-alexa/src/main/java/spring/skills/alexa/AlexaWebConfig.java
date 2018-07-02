@@ -34,22 +34,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * <p>
  * {@link WebMvcConfigurer} that adds an argument resolver for
  * {@link RequestEnvelope}. Includes verification of the request
  * signature as required by Amazon for remote/self-hosted skill applications.
- * </p>
  * 
- * <p>
  * Also configures a Jackson {@link ObjectMapper} with a custom mixin for
  * ASK types so that null values aren't included in serialized responses.
- * </p>
  * 
- * <p>
- * See <a href=
- * "https://developer.amazon.com/docs/custom-skills/host-a-custom-skill-as-a-web-service.html#verifying-that-the-request-was-sent-by-alexa">
- * Amazon documentation regarding request verification</a>.
- * </p>
+ * See 
+ * https://developer.amazon.com/docs/custom-skills/host-a-custom-skill-as-a-web-service.html#verifying-that-the-request-was-sent-by-alexa[Amazon documentation]
+ * regarding request verification.
  * 
  * @author Craig Walls
  */
