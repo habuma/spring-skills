@@ -1,13 +1,103 @@
 = Spring Skills
 
-Enables development of Alexa voice interface skills with Spring and Spring Boot.
+Spring Skills is an extension to the Spring Framework that allows the creation of
+voice-enabled applications. Spring Skills initially targets Amazon's Alexa and
+Google Assistant voice platforms, but may later be extended to support other voice
+assistants (such as Microsoft's Cortana).
 
-The original, Spring Cloud Function-based version of Spring Skills has moved into `/attic`.
-What you'll find here is a (work-in-progress) attempt at a reimagined Spring Skills that
-is controller-based, allowing Spring Skills-enabled apps to be hosted anywhere (such as
-run.pivotal.io) and (eventually) handle requests from both Alexa and Google Assistant. (At
-the moment, I'm focusing on supporting Alexa...Google Assistant comes later.)
+== Where's _my_ talking computer?
 
+The way we communicate with our applications is an ever-evolving experience. Punch
+cards gave way to keyboards. Typing on keyboards was then supplemented by pointing
+and clicking with a mouse. And touch screens on our phones, tablets, and computers
+are now a common means of communicating with applications.
+
+These all lack on thing, however: They aren't *natural*.
+
+As humans, we often communicate with each other through speech. If you were to walk
+up to another human and start tapping them, you'd likely be tapped (or punched) in
+response. But when we talk to our applications, we communicate on the machine's
+terms, with keyboards, mice, and touch screens. Even though we may use these same
+devices to communicate with other humans, it's really the machine we are communicating
+with--and those machines relay what we type, click, and tap to another human using a
+similar device.
+
+Voice user-interfaces (Voice UIs) enable us to communicate with our application in
+a human way. They give our applications the means to communicate to us on our terms,
+using voice. With a voice UI, we can converse with our applications in much the same
+way we might talk with our friends.
+
+Voice UIs are truly the next logical step in the evolution of human-computer
+interaction. And this evolutionary step is long overdue. For as long as most of us
+can remember, science fiction has promised us the ability to talk to our computers.
+The robot from _Lost in Space_, the Enterprise computer on _Star Trek_, Iron Man's
+Jarvis, and HAL 9000 (okay, maybe a bad example) are just a few well-recognized examples
+of science fiction promising a future where humans and computers would talk to each
+other.
+
+Our computers are far more powerful today than the writers of science fiction would
+have imagined. And the tablet that Captain Picard used in his ready room on _Star Trek:
+The Next Generation_ is now available with the iPad and other tablet devices. But only
+recently have voice assistants such as Alexa and Google Assistant given us the talking
+computer promised to us in sci-fi.
+
+== What can I say?
+
+With human-to-human communication, it can sometimes be awkward to know what to say to
+another person, especially if you're just getting to know them. Since voice-oriented
+human-to-computer communication is relatively new, it can be just as awkward to know
+what one might say to their applications and just what kinds of questions one might ask.
+
+Just to give you some ideas, here are a few questions someone *might* ask their
+application:
+
+ * "Hey Google, let's go on an adventure." (to launch an adventure game)
+ * "Alexa, ask vending to double our coffee order next month."
+ * "Hey Google, how crowded is Disneyland today?"
+ * "Alexa, ask inventory how many units of SKU RW13972 do we have in our Dallas warehouse?"
+
+These are just a few simple examples, useful for both fun and serious applications.
+Whichever your application is, Spring Skills will enable you to give your application a
+voice.
+
+== If at first you only somewhat succeed...
+
+The first attempt at Spring Skills was based on Spring Cloud Function and was focused
+solely on building Alexa Skills. Although this worked, it had some limitations:
+
+ * The size of the function published to AWS Lambda is limited--in terms of both
+   application footprint and memory footprint--limiting skills to either have limited
+   functionality or to ultimately delegate to some other service (REST API) for richer
+   functionality.
+ * Cold start for Java applications running in AWS Lambda is still too long for a
+   responsive user experience with Alexa.
+ * Although Alexa is dominating the voice assistant market, other voice assistants
+   such as Google Assistant and Microsoft Cortana should not be disregarded.
+
+Thus, I have decided to retire the original implementation of Spring Skills into the
+`/attic` folder for posterity and start from scratch on a new implementation that
+addresses the aforementioned limitations. Specifically...
+
+ * Spring Skills will be controller-based, allowing applications to be hosted anywhere
+   and may just be part of an existing Spring application. As such, there will be no
+   limitations imposed on memory or application size, except for those imposed by the
+   chosen platform. (This is directly supported by both Alexa and Google Assistant.
+   if a voice platform does not support direct delegation to a self-hosted service,
+   a gateway function could be developed to delegate to a self-hosted service.)
+ * Spring Skills will abstract the speech domain away from any particular voice
+   platform, enabling developers to create voice-enabled applications that target
+   any voice platform. Initially, focus will be on Alexa and Google Assistant, the
+   two leaders in this space. Fortunately, these two platforms share many common
+   concepts and similar features, so there's a lot of common ground for the abstraction
+   to be designed around. Cortana (and *maybe* eventually Siri) will be considered
+   in later phases of the project.
+
+This is still a work-in-progress. Even though the work completed thus far has proven
+the ability to create a simple "Hello World" application with Spring Skills, there's an
+enormous amount of work yet to be done. Multi-command dialogs, security, and eventual
+support for Cortana and (big maybe) Siri are just a few of the areas the need further work.
+If you have any ideas, pull requests, or just want to send good vibes my way, I welcome
+all kinds of contributions. Thanks, in advance!
 
 == Disclaimer
 
