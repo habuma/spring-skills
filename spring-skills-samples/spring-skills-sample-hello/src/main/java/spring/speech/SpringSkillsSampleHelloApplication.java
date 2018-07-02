@@ -63,6 +63,7 @@ public class SpringSkillsSampleHelloApplication {
 					speech.setSsml("<speak>I don't know what you're doing...</speak>");
 					SpeechCard card = new SpeechCard("Unknown", "Unknown intent");
 					SpeechResponse response = new SpeechResponse(speech, card);
+					response.setEndSession(false);
 					return response;
 				});
 	}

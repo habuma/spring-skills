@@ -74,13 +74,15 @@ public class AlexaSpeechRequestConverter
 			// IntentConfirmationStatus confirmationStatus = intent.getConfirmationStatus();
 			
 			Map<String, Slot> slots = intent.getSlots();
-			for (Slot slot : slots.values()) {
-				// TODO: Decide how to handle confirmation status and resolutions
-				// SlotConfirmationStatus confirmationStatus = slot.getConfirmationStatus();
-				// Resolutions resolutions = slot.getResolutions();
-				
-				Parameter parameter = new Parameter(slot.getName(), slot.getValue());
-				intentSpeechRequest.getParameters().put(slot.getName(), parameter);
+			if (slots != null) {
+				for (Slot slot : slots.values()) {
+					// TODO: Decide how to handle confirmation status and resolutions
+					// SlotConfirmationStatus confirmationStatus = slot.getConfirmationStatus();
+					// Resolutions resolutions = slot.getResolutions();
+					
+					Parameter parameter = new Parameter(slot.getName(), slot.getValue());
+					intentSpeechRequest.getParameters().put(slot.getName(), parameter);
+				}
 			}
 			
 			return intentSpeechRequest;
