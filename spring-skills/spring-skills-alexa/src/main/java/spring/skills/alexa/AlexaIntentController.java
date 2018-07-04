@@ -15,6 +15,9 @@
  */
 package spring.skills.alexa;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amazon.ask.model.RequestEnvelope;
 import com.amazon.ask.model.ResponseEnvelope;
 
+import spring.skills.core.SessionEndedSpeechResponse;
 import spring.skills.core.SpeechRequest;
 import spring.skills.core.SpeechRequestDispatcher;
 import spring.skills.core.SpeechRequestHandler;
@@ -51,10 +55,17 @@ public class AlexaIntentController {
 	}
 
 	@PostMapping
-	public ResponseEnvelope handleSpeechletRequest(RequestEnvelope requestEnv) {
+	public ResponseEntity<ResponseEnvelope> handleSpeechletRequest(RequestEnvelope requestEnv) {
 		SpeechRequest speechRequest = converter.toSpeechRequest(requestEnv);
 		SpeechResponse speechResponse = dispatcher.dispatchRequest(speechRequest);
-		return converter.toPlatformResponse(speechResponse);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		if (speechResponse instanceof SessionEndedSpeechResponse) {
+			return new ResponseEntity<ResponseEnvelope>(ResponseEnvelope.builder().build(), HttpStatus.OK);
+		}
+		return new ResponseEntity<ResponseEnvelope>(
+				converter.toPlatformResponse(speechResponse),
+				headers, HttpStatus.OK);
 	}
 
 }

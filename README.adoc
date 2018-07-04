@@ -69,7 +69,7 @@ solely on building Alexa Skills. Although this worked, it had some limitations:
    application footprint and memory footprint--limiting skills to either have limited
    functionality or to ultimately delegate to some other service (REST API) for richer
    functionality.
- * Cold start for Java applications running in AWS Lambda is still too long for a
+ * Cold-start for Java applications running in AWS Lambda is still too long for a
    responsive user experience with Alexa.
  * Although Alexa is dominating the voice assistant market, other voice assistants
    such as Google Assistant and Microsoft Cortana should not be disregarded.
@@ -84,6 +84,10 @@ addresses the aforementioned limitations. Specifically...
    chosen platform. (This is directly supported by both Alexa and Google Assistant.
    if a voice platform does not support direct delegation to a self-hosted service,
    a gateway function could be developed to delegate to a self-hosted service.)
+ * Because the application is always running on the host of your choice, there is no
+   delay due to function cold-start. The skill responds immediately, every time.
+   (With the obvious trade-off of no scale-to-zero as you'd get with an AWS Lambda
+   function.)
  * Spring Skills will abstract the speech domain away from any particular voice
    platform, enabling developers to create voice-enabled applications that target
    any voice platform. Initially, focus will be on Alexa and Google Assistant, the

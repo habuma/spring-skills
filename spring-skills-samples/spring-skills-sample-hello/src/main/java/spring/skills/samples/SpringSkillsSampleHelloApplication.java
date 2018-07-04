@@ -15,6 +15,8 @@
  */
 package spring.skills.samples;
 
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.SpringApplication;
@@ -29,6 +31,8 @@ import spring.skills.alexa.AlexaIntentController;
 import spring.skills.alexa.AlexaSpeechRequestConverter;
 import spring.skills.alexa.AlexaWebConfig;
 import spring.skills.core.BeanNameSpeechRequestDispatcher;
+import spring.skills.core.SessionEndedSpeechRequest;
+import spring.skills.core.SessionEndedSpeechRequestHandler;
 import spring.skills.core.Speech;
 import spring.skills.core.SpeechCard;
 import spring.skills.core.SpeechRequest;
@@ -40,6 +44,8 @@ import spring.skills.core.SpringSkillsProperties;
 @SpringBootApplication
 @Import(AlexaWebConfig.class)
 public class SpringSkillsSampleHelloApplication {
+
+	private static Logger logger = Logger.getLogger(SpringSkillsSampleHelloApplication.class.getName());
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringSkillsSampleHelloApplication.class, args);
@@ -80,6 +86,12 @@ public class SpringSkillsSampleHelloApplication {
 					SpeechResponse response = new SpeechResponse(speech, card);
 					response.setEndSession(false);
 					return response;
+				}, 
+				new SessionEndedSpeechRequestHandler() {
+					@Override
+					public void handleSessionEndedRequest(SessionEndedSpeechRequest request) {
+						logger.info("Session ended. Reason: " + request.getReason());
+					}
 				});
 	}
 	

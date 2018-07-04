@@ -28,16 +28,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import spring.skills.core.BeanNameSpeechRequestDispatcher;
-import spring.skills.core.IntentSpeechRequest;
-import spring.skills.core.Speech;
-import spring.skills.core.SpeechCard;
-import spring.skills.core.SpeechRequest;
-import spring.skills.core.SpeechRequestDispatcher;
-import spring.skills.core.SpeechRequestHandler;
-import spring.skills.core.SpeechResponse;
-import spring.skills.core.SpringSkillsProperties;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=BeanNameSpeechRequestDispatcherTests.TestConfig.class)
 public class BeanNameSpeechRequestDispatcherTests {
@@ -106,7 +96,7 @@ public class BeanNameSpeechRequestDispatcherTests {
 						SpeechCard card = new SpeechCard("Huh", "Huh?");
 						SpeechResponse response = new SpeechResponse(speech, card);
 						return response;
-					});
+					}, null);
 		}
 		
 	}

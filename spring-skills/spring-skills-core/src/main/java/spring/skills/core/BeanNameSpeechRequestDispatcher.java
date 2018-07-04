@@ -37,10 +37,14 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 	private ApplicationContext context;
 	private SpringSkillsProperties props;
 	private SpeechRequestHandler unknownIntentHandler;
+
+	private SessionEndedSpeechRequestHandler sessionEndedHandler;
 	
-	public BeanNameSpeechRequestDispatcher(SpringSkillsProperties props, SpeechRequestHandler unknownIntentHandler) {
+	public BeanNameSpeechRequestDispatcher(SpringSkillsProperties props, 
+			SpeechRequestHandler unknownIntentHandler, SessionEndedSpeechRequestHandler sessionEndedHandler) {
 		this.props = props;
 		this.unknownIntentHandler = unknownIntentHandler;
+		this.sessionEndedHandler = sessionEndedHandler;
 	}
 
 	@Override
@@ -62,11 +66,17 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 				logger.log(Level.WARNING, errorMessage);
 				return unknownIntentHandler.handle(request);
 			}	
+		} else if (request instanceof SessionEndedSpeechRequest) {
+			if (sessionEndedHandler != null) {
+				sessionEndedHandler.handle(request);
+			}
+			logger.log(Level.INFO, "Dispatching session ended request.");
+			return new SessionEndedSpeechResponse();
 		}
 		
 		logger.info("Unable to handle request: " + request.getClass().getName());
 		
-		return unknownIntentHandler.handle(request); // TODO: Handle non-intent requests
+		return unknownIntentHandler.handle(request);
 	}
 
 	private String getIntentBeanName(String intentName) {

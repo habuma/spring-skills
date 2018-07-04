@@ -27,6 +27,9 @@ import com.amazon.ask.model.Request;
 import com.amazon.ask.model.RequestEnvelope;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.model.ResponseEnvelope;
+import com.amazon.ask.model.SessionEndedError;
+import com.amazon.ask.model.SessionEndedReason;
+import com.amazon.ask.model.SessionEndedRequest;
 import com.amazon.ask.model.Slot;
 import com.amazon.ask.model.ui.Image;
 import com.amazon.ask.model.ui.OutputSpeech;
@@ -37,6 +40,7 @@ import com.amazon.ask.model.ui.StandardCard.Builder;
 import spring.skills.core.BuiltInIntents;
 import spring.skills.core.IntentSpeechRequest;
 import spring.skills.core.Parameter;
+import spring.skills.core.SessionEndedSpeechRequest;
 import spring.skills.core.SpeechCard;
 import spring.skills.core.SpeechRequest;
 import spring.skills.core.SpeechRequestConverter;
@@ -89,6 +93,18 @@ public class AlexaSpeechRequestConverter
 			return intentSpeechRequest;
 		// TODO: Handle other types of requests, such as session-ended requests
 		// } else if (...) {
+		} else if ("SessionEndedRequest".equals(request.getType())) {
+			SessionEndedRequest sessionEndedRequest = (SessionEndedRequest) request;
+			SessionEndedReason reason = sessionEndedRequest.getReason();
+			SessionEndedError error = sessionEndedRequest.getError();
+			String errorType = error != null ? error.getType().toString() : null;
+			String errorMessage = error != null ? error.getMessage() : null;
+			logger.info("Session ended request: " + reason);
+			
+			// TODO: Consider creating a platform-neutral reason and error type enums to avoid
+			//       leaking Alexa-specific enum values and the be able to reuse them for other
+			//       speech platforms.
+			return new SessionEndedSpeechRequest(reason.toString(), errorType, errorMessage, requestId, timestamp, locale);
 		} else {
 			logger.info("Unknown request type: " + request.getType());
 			return new SpeechRequest(requestId, timestamp, locale);
