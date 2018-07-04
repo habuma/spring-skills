@@ -96,7 +96,7 @@ public class BeanNameSpeechRequestDispatcherTests {
 						SpeechCard card = new SpeechCard("Huh", "Huh?");
 						SpeechResponse response = new SpeechResponse(speech, card);
 						return response;
-					}, null);
+					}, null, null);
 		}
 		
 	}

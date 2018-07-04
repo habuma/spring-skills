@@ -39,6 +39,7 @@ import com.amazon.ask.model.ui.StandardCard.Builder;
 
 import spring.skills.core.BuiltInIntents;
 import spring.skills.core.IntentSpeechRequest;
+import spring.skills.core.LaunchSpeechRequest;
 import spring.skills.core.Parameter;
 import spring.skills.core.SessionEndedSpeechRequest;
 import spring.skills.core.SpeechCard;
@@ -91,8 +92,10 @@ public class AlexaSpeechRequestConverter
 			}
 			
 			return intentSpeechRequest;
-		// TODO: Handle other types of requests, such as session-ended requests
+		// TODO: Handle other types of requests...
 		// } else if (...) {
+		} else if ("LaunchRequest".equals(request.getType())) {
+			return new LaunchSpeechRequest(requestId, timestamp, locale);
 		} else if ("SessionEndedRequest".equals(request.getType())) {
 			SessionEndedRequest sessionEndedRequest = (SessionEndedRequest) request;
 			SessionEndedReason reason = sessionEndedRequest.getReason();

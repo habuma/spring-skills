@@ -39,11 +39,16 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 	private SpeechRequestHandler unknownIntentHandler;
 
 	private SessionEndedSpeechRequestHandler sessionEndedHandler;
+
+	private SpeechRequestHandler launchRequestHandler;
 	
 	public BeanNameSpeechRequestDispatcher(SpringSkillsProperties props, 
-			SpeechRequestHandler unknownIntentHandler, SessionEndedSpeechRequestHandler sessionEndedHandler) {
+			SpeechRequestHandler unknownIntentHandler,
+			SpeechRequestHandler launchRequestHandler, // TODO: Figure out a better way and what to do if not specified
+			SessionEndedSpeechRequestHandler sessionEndedHandler) {
 		this.props = props;
 		this.unknownIntentHandler = unknownIntentHandler;
+		this.launchRequestHandler = launchRequestHandler;
 		this.sessionEndedHandler = sessionEndedHandler;
 	}
 
@@ -66,6 +71,8 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 				logger.log(Level.WARNING, errorMessage);
 				return unknownIntentHandler.handle(request);
 			}	
+		} else if (request instanceof LaunchSpeechRequest) {
+			return launchRequestHandler.handle(request);
 		} else if (request instanceof SessionEndedSpeechRequest) {
 			if (sessionEndedHandler != null) {
 				sessionEndedHandler.handle(request);

@@ -87,6 +87,7 @@ public class SpringSkillsSampleHelloApplication {
 					response.setEndSession(false);
 					return response;
 				}, 
+				sayHello(), // TODO : Consider a better way to specify this
 				new SessionEndedSpeechRequestHandler() {
 					@Override
 					public void handleSessionEndedRequest(SessionEndedSpeechRequest request) {

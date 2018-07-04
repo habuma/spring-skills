@@ -42,7 +42,7 @@ public class TestConfiguration {
 	
 	@Bean
 	public SpeechRequestDispatcher dispatcher() {
-		return new BeanNameSpeechRequestDispatcher(new SpringSkillsProperties(), null, null);
+		return new BeanNameSpeechRequestDispatcher(new SpringSkillsProperties(), null, null, null);
 	}
 	
 	@Bean
