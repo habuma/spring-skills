@@ -32,9 +32,9 @@ public class SessionEndedSpeechRequest extends SpeechRequest {
 
 	private final String errorMessage;
 
-	public SessionEndedSpeechRequest(String reason, String errorType, String errorMessage, String requestId,
+	public SessionEndedSpeechRequest(Source source, String reason, String errorType, String errorMessage, String requestId,
 			OffsetDateTime timestamp, Locale locale) {
-		super(requestId, timestamp, locale);
+		super(source, requestId, timestamp, locale);
 		this.reason = reason;
 		this.errorType = errorType;
 		this.errorMessage = errorMessage;

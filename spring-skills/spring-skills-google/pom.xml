@@ -4,19 +4,20 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>spring.skills</groupId>
-	<artifactId>spring-skills-sample-hello</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>spring-skills-google</artifactId>
+	<version>0.0.1.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-skills-sample-hello</name>
-	<description>Sample Spring Skills Project</description>
+	<name>spring-skills-google</name>
+	<description>Spring Skills Google</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,21 +33,10 @@
 
 		<dependency>
 			<groupId>spring.skills</groupId>
-			<artifactId>spring-skills-alexa</artifactId>
-			<version>0.0.1.BUILD-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>spring.skills</groupId>
-			<artifactId>spring-skills-google</artifactId>
+			<artifactId>spring-skills-core</artifactId>
 			<version>0.0.1.BUILD-SNAPSHOT</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -57,11 +47,27 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<doclet>org.asciidoctor.Asciidoclet</doclet>
+					<docletArtifact>
+						<groupId>org.asciidoctor</groupId>
+						<artifactId>asciidoclet</artifactId>
+						<version>1.5.4</version>
+					</docletArtifact>
+					<overview>src/main/java/overview.adoc</overview>
+					<additionalparam>
+						--base-dir ${project.basedir}
+						--attribute "name=${project.name}"
+						--attribute "version=${project.version}"
+						--attribute "title-link=http://example.com[${project.name}
+						${project.version}]"
+					</additionalparam>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

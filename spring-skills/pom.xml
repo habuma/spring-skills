@@ -5,7 +5,7 @@
 
     <groupId>spring.skills</groupId>
     <artifactId>spring-skills</artifactId>
-    <version>0.0.1-BUILD_SNAPSHOT</version>
+    <version>0.0.1.BUILD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -17,7 +17,8 @@
 
     <modules>
       <module>spring-skills-core</module>
-        <module>spring-skills-alexa</module>
+      <module>spring-skills-alexa</module>
+      <module>spring-skills-google</module>
     </modules>
 
 </project>

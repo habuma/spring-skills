@@ -44,6 +44,7 @@ import spring.skills.core.Parameter;
 import spring.skills.core.SessionEndedSpeechRequest;
 import spring.skills.core.SpeechCard;
 import spring.skills.core.SpeechRequest;
+import spring.skills.core.SpeechRequest.Source;
 import spring.skills.core.SpeechRequestConverter;
 import spring.skills.core.SpeechResponse;
 
@@ -74,7 +75,7 @@ public class AlexaSpeechRequestConverter
 			
 			Intent intent = intentRequest.getIntent();
 			String intentName = neutralizeBuiltInIntentNames(intent.getName());
-			IntentSpeechRequest intentSpeechRequest = new IntentSpeechRequest(intentName, requestId, timestamp, locale);
+			IntentSpeechRequest intentSpeechRequest = new IntentSpeechRequest(Source.ALEXA, intentName, requestId, timestamp, locale);
 			
 			// TODO: Decide how to handle confirmation status
 			// IntentConfirmationStatus confirmationStatus = intent.getConfirmationStatus();
@@ -95,7 +96,7 @@ public class AlexaSpeechRequestConverter
 		// TODO: Handle other types of requests...
 		// } else if (...) {
 		} else if ("LaunchRequest".equals(request.getType())) {
-			return new LaunchSpeechRequest(requestId, timestamp, locale);
+			return new LaunchSpeechRequest(Source.ALEXA, requestId, timestamp, locale);
 		} else if ("SessionEndedRequest".equals(request.getType())) {
 			SessionEndedRequest sessionEndedRequest = (SessionEndedRequest) request;
 			SessionEndedReason reason = sessionEndedRequest.getReason();
@@ -107,10 +108,10 @@ public class AlexaSpeechRequestConverter
 			// TODO: Consider creating a platform-neutral reason and error type enums to avoid
 			//       leaking Alexa-specific enum values and the be able to reuse them for other
 			//       speech platforms.
-			return new SessionEndedSpeechRequest(reason.toString(), errorType, errorMessage, requestId, timestamp, locale);
+			return new SessionEndedSpeechRequest(Source.ALEXA, reason.toString(), errorType, errorMessage, requestId, timestamp, locale);
 		} else {
 			logger.info("Unknown request type: " + request.getType());
-			return new SpeechRequest(requestId, timestamp, locale);
+			return new SpeechRequest(Source.ALEXA, requestId, timestamp, locale);
 		}
 		
 	}

@@ -28,6 +28,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import spring.skills.core.SpeechRequest.Source;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=BeanNameSpeechRequestDispatcherTests.TestConfig.class)
 public class BeanNameSpeechRequestDispatcherTests {
@@ -37,21 +39,28 @@ public class BeanNameSpeechRequestDispatcherTests {
 	
 	@Test
 	public void shouldDispatchToBeanMatchingIntentName() {
-		SpeechRequest request = buildIntentRequest("hello");
+		SpeechRequest request = buildIntentRequest("sayHello");
 		SpeechResponse response = dispatcher.dispatchRequest(request);
 		assertEquals(response.getSpeech().getSsml(), TestConfig.HELLO_SSML);
 	}
 
 	@Test
 	public void shouldDispatchToBeanMatchingCapitalizedIntentName() {
-		SpeechRequest request = buildIntentRequest("Hello");
+		SpeechRequest request = buildIntentRequest("SayHello");
 		SpeechResponse response = dispatcher.dispatchRequest(request);
 		assertEquals(response.getSpeech().getSsml(), TestConfig.HELLO_SSML);
 	}
 	
 	@Test
 	public void shouldDispatchToBeanMatchingSuffixedIntentName() {
-		SpeechRequest request = buildIntentRequest("helloIntent");
+		SpeechRequest request = buildIntentRequest("sayHelloIntent");
+		SpeechResponse response = dispatcher.dispatchRequest(request);
+		assertEquals(response.getSpeech().getSsml(), TestConfig.HELLO_SSML);
+	}
+	
+	@Test
+	public void shouldDispatchToBeanMatchingHyphenatedIntentName() {
+		SpeechRequest request = buildIntentRequest("say-hello");
 		SpeechResponse response = dispatcher.dispatchRequest(request);
 		assertEquals(response.getSpeech().getSsml(), TestConfig.HELLO_SSML);
 	}
@@ -64,7 +73,7 @@ public class BeanNameSpeechRequestDispatcherTests {
 	}
 	
 	private IntentSpeechRequest buildIntentRequest(String intentName) {
-		return new IntentSpeechRequest(intentName, "request_1", OffsetDateTime.now(), Locale.US);
+		return new IntentSpeechRequest(Source.ALEXA, intentName, "request_1", OffsetDateTime.now(), Locale.US);
 	}
 
 	@Configuration
@@ -75,7 +84,7 @@ public class BeanNameSpeechRequestDispatcherTests {
 		public static final String UNKNOWN_INTENT_SSML = "<speak>I'm not sure what you're asking</speak>";
 
 		@Bean
-		public SpeechRequestHandler hello() {
+		public SpeechRequestHandler sayHello() {
 			return (request) -> {
 				Speech speech = new Speech();
 				speech.setSsml(HELLO_SSML);
@@ -88,8 +97,7 @@ public class BeanNameSpeechRequestDispatcherTests {
 		
 		@Bean
 		public SpeechRequestDispatcher speechRequestDispatcher() {
-			SpringSkillsProperties props = new SpringSkillsProperties();
-			return new BeanNameSpeechRequestDispatcher(props, 
+			return new BeanNameSpeechRequestDispatcher( 
 					(request) -> {
 						Speech speech = new Speech();
 						speech.setSsml(UNKNOWN_INTENT_SSML);

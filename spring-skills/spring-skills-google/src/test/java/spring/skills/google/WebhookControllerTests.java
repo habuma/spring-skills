@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package spring.skills.samples;
+package spring.skills.google;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.json.JSONException;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -35,27 +34,25 @@ import org.springframework.util.StreamUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-public class HelloSkillTests {
+public class WebhookControllerTests {
 	
 	@Autowired
 	TestRestTemplate rest;
 	
 	@Test
-	@Ignore
-	public void testSimpleIntentRequest() throws IOException, JSONException {
-		String intentRequestJSON = readToString("/simple-intent-request.json");
-		String expectedResponseJSON = readToString("/simple-intent-response.json");
+	public void shouldHandleSimpleRequest() throws IOException, JSONException {
+		String intentRequestJSON = readToString("/simple-webhook-request.json");
+		String expectedResponseJSON = readToString("/simple-webhook-response.json");
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<String> requestEntity = new HttpEntity<>(intentRequestJSON, headers);
-		String response = rest.postForObject("/alexa", requestEntity, String.class);		
+		String response = rest.postForObject("/google", requestEntity, String.class);
 		JSONAssert.assertEquals(expectedResponseJSON, response, false);
 	}
 
 	private String readToString(String path) throws IOException {
 		ClassPathResource resource = new ClassPathResource(path);
-		String intentRequestBody = StreamUtils.copyToString(resource.getInputStream(), Charset.defaultCharset());
-		return intentRequestBody;
+		return StreamUtils.copyToString(resource.getInputStream(), Charset.defaultCharset());
 	}
 
 }

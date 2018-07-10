@@ -35,11 +35,11 @@ import spring.skills.core.SessionEndedSpeechRequest;
 import spring.skills.core.SessionEndedSpeechRequestHandler;
 import spring.skills.core.Speech;
 import spring.skills.core.SpeechCard;
-import spring.skills.core.SpeechRequest;
+import spring.skills.core.SpeechRequest.Source;
 import spring.skills.core.SpeechRequestDispatcher;
 import spring.skills.core.SpeechRequestHandler;
 import spring.skills.core.SpeechResponse;
-import spring.skills.core.SpringSkillsProperties;
+import spring.skills.google.WebhookController;
 
 @SpringBootApplication
 @Import(AlexaWebConfig.class)
@@ -53,18 +53,16 @@ public class SpringSkillsSampleHelloApplication {
 	
 	@Bean
 	public SpeechRequestHandler sayHello() {
-		return new SpeechRequestHandler() {
-			@Override
-			public SpeechResponse handle(SpeechRequest request) {
-				Speech speech = new Speech();
-				speech.setSsml("<speak>Hello</speak>");
-				
-				SpeechCard card = new SpeechCard("Hello", "Well, hello there");
-				SpeechResponse response = new SpeechResponse(speech, card);
-				response.setEndSession(false);
-				
-				return response;
-			}
+		return request -> {
+			Source source = request.getSource();
+			logger.info("HANDLING SPEECH REQUEST FROM:  " + source);
+			String textToSay = "Well, hello there. I'm handling a request on behalf of " + source + ".";
+			Speech speech = new Speech();
+			speech.setSsml("<speak>" + textToSay + "</speak>");
+			SpeechCard card = new SpeechCard("Hello!", textToSay);
+			SpeechResponse response = new SpeechResponse(speech, card);
+			response.setEndSession(false);
+			return response;
 		};
 	}
 
@@ -78,7 +76,7 @@ public class SpringSkillsSampleHelloApplication {
 	
 	@Bean
 	public SpeechRequestDispatcher dispatcher() {
-		return new BeanNameSpeechRequestDispatcher(new SpringSkillsProperties(), 
+		return new BeanNameSpeechRequestDispatcher( 
 				(request) -> {
 					Speech speech = new Speech();
 					speech.setSsml("<speak>I don't know what you're doing...</speak>");
@@ -109,6 +107,11 @@ public class SpringSkillsSampleHelloApplication {
 	@Bean
 	public AlexaIntentController alexaController() {
 		return new AlexaIntentController(dispatcher());
+	}
+	
+	@Bean
+	public WebhookController webhookController() {
+		return new WebhookController(dispatcher());
 	}
 	
 }

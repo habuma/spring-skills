@@ -1,0 +1,16 @@
+{
+  "payload": {
+    "google": {
+      "expectUserResponse": true,
+      "richResponse": {
+        "items": [
+          {
+            "simpleResponse": {
+              "ssml": "<speak>Hello</speak>"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

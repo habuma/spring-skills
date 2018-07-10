@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package spring.skills.alexa;
-
-import javax.servlet.http.HttpServletRequest;
+package spring.skills.google;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import com.amazon.ask.model.RequestEnvelope;
-import com.amazon.ask.servlet.verifiers.SkillServletVerifier;
 
 import spring.skills.core.BeanNameSpeechRequestDispatcher;
 import spring.skills.core.Speech;
@@ -35,23 +30,13 @@ import spring.skills.core.SpeechResponse;
 public class TestConfiguration {
 
 	@Bean
-	public AlexaSpeechRequestConverter converter() {
-		return new AlexaSpeechRequestConverter();
+	public WebhookSpeechRequestConverter converter() {
+		return new WebhookSpeechRequestConverter();
 	}
 	
 	@Bean
 	public SpeechRequestDispatcher dispatcher() {
 		return new BeanNameSpeechRequestDispatcher(null, null, null);
-	}
-	
-	@Bean
-	public SkillServletVerifier noopVerifier() {
-		return new SkillServletVerifier() {
-			@Override
-			public void verify(HttpServletRequest servletRequest, byte[] serializedRequestEnvelope,
-					RequestEnvelope deserializedRequestEnvelope) throws SecurityException {
-			}
-		};
 	}
 	
 	@Bean

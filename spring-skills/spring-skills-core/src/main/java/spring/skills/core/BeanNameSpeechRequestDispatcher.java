@@ -35,18 +35,15 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 	private static Logger logger = Logger.getLogger(BeanNameSpeechRequestDispatcher.class.getName());
 
 	private ApplicationContext context;
-	private SpringSkillsProperties props;
 	private SpeechRequestHandler unknownIntentHandler;
 
 	private SessionEndedSpeechRequestHandler sessionEndedHandler;
 
 	private SpeechRequestHandler launchRequestHandler;
 	
-	public BeanNameSpeechRequestDispatcher(SpringSkillsProperties props, 
-			SpeechRequestHandler unknownIntentHandler,
+	public BeanNameSpeechRequestDispatcher(SpeechRequestHandler unknownIntentHandler,
 			SpeechRequestHandler launchRequestHandler, // TODO: Figure out a better way and what to do if not specified
 			SessionEndedSpeechRequestHandler sessionEndedHandler) {
-		this.props = props;
 		this.unknownIntentHandler = unknownIntentHandler;
 		this.launchRequestHandler = launchRequestHandler;
 		this.sessionEndedHandler = sessionEndedHandler;
@@ -62,7 +59,7 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 		if (request instanceof IntentSpeechRequest) {
 			IntentSpeechRequest intentRequest = (IntentSpeechRequest) request;
 			String intentName = intentRequest.getIntentName();
-			String beanName = getIntentBeanName(intentName);
+			String beanName = IntentToBeanNameUtils.beanifyIntentName(intentName);
 			try {
 				SpeechRequestHandler handler = context.getBean(beanName, SpeechRequestHandler.class);
 				return handler.handle(request);
@@ -84,24 +81,6 @@ public class BeanNameSpeechRequestDispatcher implements SpeechRequestDispatcher,
 		logger.info("Unable to handle request: " + request.getClass().getName());
 		
 		return unknownIntentHandler.handle(request);
-	}
-
-	private String getIntentBeanName(String intentName) {
-		if (intentName.equals(BuiltInIntents.HELP_INTENT)) {
-			return props.getHelpIntentBeanName();
-		} else if (intentName.equals(BuiltInIntents.STOP_INTENT)) {
-			return props.getStopIntentBeanName();
-		} else if (intentName.equals(BuiltInIntents.CANCEL_INTENT)) {
-			return props.getCancelIntentBeanName();
-		}
-		return beanifyIntentName(intentName);
-	}
-
-	private String beanifyIntentName(String intentName) {
-		if (intentName.endsWith("Intent")) {
-			intentName = intentName.substring(0, intentName.length() - 6);
-		}
-		return Character.toLowerCase(intentName.charAt(0)) + intentName.substring(1);
 	}
 
 }

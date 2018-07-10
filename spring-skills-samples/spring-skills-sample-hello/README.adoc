@@ -2,12 +2,38 @@
 
 This is a simple "Hello world" skill that uses Spring Skills.
 
-This is still a work in progress and does not yet quite work. That's because spring-skills-alexa does not yet handle a session-ended request.
+At this time, there is still a lot of explicit configuration require
+to make Spring Skills work, as you'll see in SpringSkillsSampleHelloApplication.java.
+Much of this explicit configuration will eventually be handled by
+Spring Boot auto-configuration.
+
+The key thing to pay attention to is the `sayHello()` bean method in
+SpringSkillsSampleHelloApplication.java. This bean is a `SpeechRequestHandler`
+that will handle intent requests from either Alexa or Google when the
+intent-name approximately matches the bean name ("say hello", "say-hello",
+"sayHello", "SAY_HELLO", etc). For Google skills, the intent's display
+name is used.
+
+== Deploying the sample
+
+TBD, but in short:
+
+- Deploy the application somewhere on the internet where Amazon can see it.
+  This could be Pivotal Web Services, so I use `cf push` to push it to
+  PWS.
 
 == Deploying for Alexa
 
-TBD
+TBD, but in short:
+
+ - Create a new skill at https://developer.amazon.com/alexa-skills-kit,
+   with an intent named "SayHello", and configure it to make a request to
+   the app with a path of `/alexa`.
 
 == Deploying for Google Assistant
 
-TBD
+TBD, but in short:
+ - Create a new intent at https://console.dialogflow.com/ with a name
+   of "Say Hello"
+ - Create a new project at https://console.actions.google.com/ with a
+   dialogflow action which refers to the "Say Hello" intent.

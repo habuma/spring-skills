@@ -5,7 +5,7 @@
 
 	<groupId>spring.skills</groupId>
 	<artifactId>spring-skills-core</artifactId>
-	<version>0.0.1-BUILD_SNAPSHOT</version>
+	<version>0.0.1.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>spring-skills</name>

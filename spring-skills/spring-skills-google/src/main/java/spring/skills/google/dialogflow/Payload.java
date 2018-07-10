@@ -13,15 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package spring.skills.core;
+package spring.skills.google.dialogflow;
 
-import java.time.OffsetDateTime;
-import java.util.Locale;
-
-public class LaunchSpeechRequest extends SpeechRequest {
-
-	public LaunchSpeechRequest(Source source, String requestId, OffsetDateTime timestamp, Locale locale) {
-		super(source, requestId, timestamp, locale);
-	}
+public interface Payload {
 
 }

@@ -25,8 +25,8 @@ public class IntentSpeechRequest extends SpeechRequest {
 	
 	private HashMap<String, Parameter> parameters = new HashMap<>();
 
-	public IntentSpeechRequest(String intentName, String requestId, OffsetDateTime timestamp, Locale locale) {
-		super(requestId, timestamp, locale);
+	public IntentSpeechRequest(Source source, String intentName, String requestId, OffsetDateTime timestamp, Locale locale) {
+		super(source, requestId, timestamp, locale);
 		this.intentName = intentName;
 	}
 	

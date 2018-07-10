@@ -13,15 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package spring.skills.core;
+package spring.skills.google.dialogflow;
 
-import java.time.OffsetDateTime;
-import java.util.Locale;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class LaunchSpeechRequest extends SpeechRequest {
+@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonInclude(value=Include.NON_NULL)
+public class OriginalDetectIntentRequest {
 
-	public LaunchSpeechRequest(Source source, String requestId, OffsetDateTime timestamp, Locale locale) {
-		super(source, requestId, timestamp, locale);
+	private String source;
+	
+	private String version;
+
+	public String getSource() {
+		return source;
 	}
 
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	
 }

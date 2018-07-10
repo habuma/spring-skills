@@ -24,6 +24,8 @@ import java.util.Locale;
  * @author Craig Walls
  */
 public class SpeechRequest {
+	
+	private final Source source;
 
 	private final String requestId;
 	
@@ -31,10 +33,15 @@ public class SpeechRequest {
 	
 	private final Locale locale;
 
-	public SpeechRequest(String requestId, OffsetDateTime timestamp, Locale locale) {
+	public SpeechRequest(Source source, String requestId, OffsetDateTime timestamp, Locale locale) {
+		this.source = source;
 		this.requestId = requestId;
 		this.timestamp = timestamp;
 		this.locale = locale;
+	}
+	
+	public Source getSource() {
+		return source;
 	}
 	
 	public String getRequestId() {
@@ -49,5 +56,7 @@ public class SpeechRequest {
 		return locale;
 	}
 	
-	
+	public static enum Source {
+		ALEXA, GOOGLE
+	}
 }

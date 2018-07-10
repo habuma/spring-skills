@@ -45,6 +45,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * https://developer.amazon.com/docs/custom-skills/host-a-custom-skill-as-a-web-service.html#verifying-that-the-request-was-sent-by-alexa[Amazon documentation]
  * regarding request verification.
  * 
+ * TODO: This should probably become part of the eventual auto-config.
+ * 
  * @author Craig Walls
  */
 @Configuration
