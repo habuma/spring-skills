@@ -25,6 +25,7 @@ import spring.skills.core.SpeechRequest;
 import spring.skills.core.SpeechRequest.Source;
 import spring.skills.core.SpeechRequestConverter;
 import spring.skills.core.SpeechResponse;
+import spring.skills.google.dialogflow.BasicCard;
 import spring.skills.google.dialogflow.GooglePayload;
 import spring.skills.google.dialogflow.Item;
 import spring.skills.google.dialogflow.Payload;
@@ -64,11 +65,23 @@ public class WebhookSpeechRequestConverter
 		simpleResponse.setSsml(speechResponse.getSpeech().getSsml());
 		item.setSimpleResponse(simpleResponse);
 		items.add(item);
+
+		Item cardItem = new Item();
+		BasicCard card = convertCard(speechResponse);
+		cardItem.setBasicCard(card);
+		items.add(cardItem);
 		richResponse.setItems(items);
 		googlePayload.setRichResponse(richResponse);
 		payload.put("google", googlePayload);
 		response.setPayload(payload);
 		return response;
+	}
+
+	private BasicCard convertCard(SpeechResponse speechResponse) {
+		BasicCard card = new BasicCard();
+		card.setTitle(speechResponse.getCard().getTitle());
+		card.setFormattedText(speechResponse.getCard().getText());
+		return card;
 	}
 
 }

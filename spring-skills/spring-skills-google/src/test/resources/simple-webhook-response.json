@@ -8,6 +8,12 @@
             "simpleResponse": {
               "ssml": "<speak>Hello</speak>"
             }
+          },
+          {
+            "basicCard": {
+              "title": "Hello",
+              "formattedText": "Well, hello there"
+            }
           }
         ]
       }

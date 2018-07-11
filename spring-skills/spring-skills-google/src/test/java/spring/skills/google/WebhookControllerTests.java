@@ -47,6 +47,7 @@ public class WebhookControllerTests {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<String> requestEntity = new HttpEntity<>(intentRequestJSON, headers);
 		String response = rest.postForObject("/google", requestEntity, String.class);
+		System.out.println(response);
 		JSONAssert.assertEquals(expectedResponseJSON, response, false);
 	}
 
