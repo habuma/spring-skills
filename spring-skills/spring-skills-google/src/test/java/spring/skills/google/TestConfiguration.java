@@ -15,13 +15,16 @@
  */
 package spring.skills.google;
 
+import java.util.HashMap;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import spring.skills.core.BeanNameSpeechRequestDispatcher;
+import spring.skills.core.IntentSpeechRequest;
+import spring.skills.core.Parameter;
 import spring.skills.core.Speech;
 import spring.skills.core.SpeechCard;
-import spring.skills.core.SpeechRequest;
 import spring.skills.core.SpeechRequestDispatcher;
 import spring.skills.core.SpeechRequestHandler;
 import spring.skills.core.SpeechResponse;
@@ -41,9 +44,7 @@ public class TestConfiguration {
 	
 	@Bean
 	public SpeechRequestHandler sayHello() {
-		return new SpeechRequestHandler() {
-			@Override
-			public SpeechResponse handle(SpeechRequest request) {
+		return request -> {
 				Speech speech = new Speech();
 				speech.setSsml("<speak>Hello</speak>");
 				
@@ -51,7 +52,25 @@ public class TestConfiguration {
 				SpeechResponse response = new SpeechResponse(speech, card);
 				
 				return response;
-			}
+			};
+	}
+	
+	@Bean
+	public SpeechRequestHandler myFavorites() {
+		return request -> {
+			IntentSpeechRequest intentRequest = (IntentSpeechRequest) request;
+			HashMap<String, Parameter> parameters = intentRequest.getParameters();
+			String color = parameters.get("color").getValue();
+			String animal = parameters.get("animal").getValue();
+			
+			String textToSay = "Your favorites are " + color + " and " + animal + ".";
+			Speech speech = new Speech();
+			speech.setSsml("<speak>" + textToSay + "</speak>");
+			
+			SpeechCard card = new SpeechCard("Favorites", textToSay);
+			SpeechResponse response = new SpeechResponse(speech, card);
+			
+			return response;
 		};
 	}
 	

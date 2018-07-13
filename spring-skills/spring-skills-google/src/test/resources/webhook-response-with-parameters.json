@@ -1,0 +1,22 @@
+{
+  "payload": {
+    "google": {
+      "expectUserResponse": true,
+      "richResponse": {
+        "items": [
+          {
+            "simpleResponse": {
+              "ssml": "<speak>Your favorites are blue and cat.</speak>"
+            }
+          },
+          {
+            "basicCard": {
+              "title": "Favorites",
+              "formattedText": "Your favorites are blue and cat."
+            }
+          }
+        ]
+      }
+    }
+  }
+}

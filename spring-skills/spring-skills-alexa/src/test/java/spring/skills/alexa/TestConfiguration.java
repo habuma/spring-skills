@@ -15,6 +15,8 @@
  */
 package spring.skills.alexa;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +26,8 @@ import com.amazon.ask.model.RequestEnvelope;
 import com.amazon.ask.servlet.verifiers.SkillServletVerifier;
 
 import spring.skills.core.BeanNameSpeechRequestDispatcher;
+import spring.skills.core.IntentSpeechRequest;
+import spring.skills.core.Parameter;
 import spring.skills.core.Speech;
 import spring.skills.core.SpeechCard;
 import spring.skills.core.SpeechRequest;
@@ -67,6 +71,25 @@ public class TestConfiguration {
 				
 				return response;
 			}
+		};
+	}
+	
+	@Bean
+	public SpeechRequestHandler myFavorites() {
+		return request -> {
+			IntentSpeechRequest intentRequest = (IntentSpeechRequest) request;
+			HashMap<String, Parameter> parameters = intentRequest.getParameters();
+			String color = parameters.get("color").getValue();
+			String animal = parameters.get("animal").getValue();
+			
+			String textToSay = "Your favorites are " + color + " and " + animal + ".";
+			Speech speech = new Speech();
+			speech.setSsml("<speak>" + textToSay + "</speak>");
+			
+			SpeechCard card = new SpeechCard("Favorites", textToSay);
+			SpeechResponse response = new SpeechResponse(speech, card);
+			
+			return response;
 		};
 	}
 	

@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "sessionAttributes": {},
+  "response": {
+    "outputSpeech": {
+      "type": "SSML",
+      "ssml": "<speak>Your favorites are blue and cat.</speak>"
+    },
+    "card": {
+      "type": "Standard",
+      "title": "Favorites",
+      "text": "Your favorites are blue and cat."
+    },
+    "shouldEndSession": true
+  }
+}

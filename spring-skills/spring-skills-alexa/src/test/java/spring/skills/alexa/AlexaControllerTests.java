@@ -49,6 +49,18 @@ public class AlexaControllerTests {
 		String response = rest.postForObject("/alexa", requestEntity, String.class);		
 		JSONAssert.assertEquals(expectedResponseJSON, response, false);
 	}
+	
+	@Test
+	public void shouldHandleRequestWithParameters() throws IOException, JSONException {
+		String intentRequestJSON = readToString("/intent-request-with-parameters.json");
+		String expectedResponseJSON = readToString("/intent-response-with-parameters.json");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> requestEntity = new HttpEntity<>(intentRequestJSON, headers);
+		String response = rest.postForObject("/alexa", requestEntity, String.class);
+		System.out.println(response);
+		JSONAssert.assertEquals(expectedResponseJSON, response, false);
+	}
 
 	private String readToString(String path) throws IOException {
 		ClassPathResource resource = new ClassPathResource(path);

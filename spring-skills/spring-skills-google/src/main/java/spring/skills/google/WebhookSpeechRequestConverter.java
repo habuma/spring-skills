@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import spring.skills.core.IntentSpeechRequest;
+import spring.skills.core.Parameter;
 import spring.skills.core.SpeechRequest;
 import spring.skills.core.SpeechRequest.Source;
 import spring.skills.core.SpeechRequestConverter;
@@ -46,10 +47,17 @@ public class WebhookSpeechRequestConverter
 	@Override
 	public SpeechRequest toSpeechRequest(WebhookRequest webhookRequest) {
 		String intentDisplayName = webhookRequest.getQueryResult().getIntent().getDisplayName();
-		return new IntentSpeechRequest(Source.GOOGLE, 
+		IntentSpeechRequest speechRequest = new IntentSpeechRequest(Source.GOOGLE, 
 								intentDisplayName, 
 								webhookRequest.getResponseId(), 
 								null, null); // TODO: Figure out how to deal with no locale or timestamp
+		
+		Map<String, String> webhookParams = webhookRequest.getQueryResult().getParameters();
+		for (String key : webhookParams.keySet()) {
+			speechRequest.getParameters().put(key, new Parameter(key, webhookParams.get(key)));
+		}
+		
+		return speechRequest;
 	}
 	
 	@Override

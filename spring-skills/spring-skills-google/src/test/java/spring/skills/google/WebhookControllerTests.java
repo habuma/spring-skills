@@ -50,6 +50,18 @@ public class WebhookControllerTests {
 		System.out.println(response);
 		JSONAssert.assertEquals(expectedResponseJSON, response, false);
 	}
+	
+	@Test
+	public void shoulHandleRequestWithParameters() throws IOException, JSONException {
+		String intentRequestJSON = readToString("/webhook-request-with-parameters.json");
+		String expectedResponseJSON = readToString("/webhook-response-with-parameters.json");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> requestEntity = new HttpEntity<>(intentRequestJSON, headers);
+		String response = rest.postForObject("/google", requestEntity, String.class);
+		System.out.println(response);
+		JSONAssert.assertEquals(expectedResponseJSON, response, false);
+	}
 
 	private String readToString(String path) throws IOException {
 		ClassPathResource resource = new ClassPathResource(path);
