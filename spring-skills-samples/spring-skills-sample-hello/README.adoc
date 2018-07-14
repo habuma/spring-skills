@@ -14,23 +14,146 @@ intent-name approximately matches the bean name ("say hello", "say-hello",
 "sayHello", "SAY_HELLO", etc). For Google skills, the intent's display
 name is used.
 
-== Deploying the sample
+== Deploying the application
 
-TBD, but in short:
+Spring Skills applications are ultimately just REST applications living
+somewhere on the web where Alexa and Google's DialogFlow can reach them.
+You may deploy the application anywhere, so long as it is publicly reachable
+by the voice platforms.
 
-- Deploy the application somewhere on the internet where Amazon can see it.
-  This could be Pivotal Web Services, so I use `cf push` to push it to
-  PWS.
+=== Pushing to Cloud Foundry
 
-== Deploying for Alexa
+To make things easy, I've included a `manifest.yml` file so that you may
+push to a public Cloud Foundry, such as Pivotal Web Services (PWS). Assuming
+that you've logged into the Cloud Foundry foundation, you may push the
+application using the `cf` command line like this:
 
-TBD, but in short:
+[source,sh]
+----
+$ cf push -f manifest.yml
+----
 
- - Create a new skill at https://developer.amazon.com/alexa-skills-kit,
-   with an intent named "SayHello", and configure it to make a request to
-   the app with a path of `/alexa`.
+The manifest is written such that it will assign a random route to the
+deployed application. Be sure to note the assigned route, as it will be
+needed when registering the webhook with the voice platforms.
 
-== Deploying for Google Assistant
+For example, when I pushed using the manifest, I observed the following
+output (abridged to focus on the route):
+
+[source,sh]
+----
+$ cf push -f manifest.yml
+Using manifest file manifest.yml
+
+...
+
+requested state: started
+instances: 1/1
+usage: 1G x 1 instances
+urls: hello-spring-skillz-unremarked-quern.cfapps.io
+last uploaded: Sat Jul 14 03:56:09 UTC 2018
+stack: cflinuxfs2
+buildpack: client-certificate-mapper=1.6.0_RELEASE ...
+
+     state     since                    cpu    memory        disk       details
+#0   running   2018-07-13 09:56:59 PM   0.0%   38.8K of 1G   8K of 1G
+----
+
+Here the assigned route is "hello-spring-skillz-unremarked-quern.cfapps.io",
+as reflected in the `urls:` line. This means that...
+
+ - Alexa will need to setup to perform POST requests to
+   https://hello-spring-skillz-unremarked-quern.cfapps.io/alexa.
+ - Google DialogFlow will need to setup to perform POST requests to
+   https://hello-spring-skillz-unremarked-quern.cfapps.io/google.
+
+The following sections describe the steps to setup the webhooks in each
+voice platform.
+
+=== Registering with Alexa
+
+In order to talk with the application via Alexa, you'll need to create
+a new skill. After logging into https://developer.amazon.com/alexa-skills-kit,
+click the "Your Alexa Consoles" link (near the top) and choose "Skills". Then
+click the "Create Skill" button.
+
+Next you'll be asked to give your skill a name, assign the default language,
+and choose a model to add to the skill. You may name the skill anything you
+wish--I have named mine "Hello Spring Skills". Just to get started, it's easy
+enough to set the default language to "English (US)" (although, I suspect it
+will work fine with any other language). Select "Custom" skill from the set
+of skill models (it may already be selected) and then click the "Create a
+Skill" button near the top.
+
+You'll then be taken to the "Build" dashboard for your skill. There is a handy
+"Skill builder checklist" on the right side that describes the essential steps
+for defining your skill. We'll start by setting the invocation name.
+
+In the menu on the left side, click "Invocation". You'll be presented with a
+form where you can define the phrase that will invoke the skill. I've used
+"hello spring skills", which means that I'll be able to open the skill by saying
+"Alexa, open hello spring skills".
+
+Next, you'll need to create an intent. In the menu on the left, click "Intents".
+You'll be presented with a list of existing intents, which will include a handful
+of built-in intents. For our purposes, you'll need to create a new custom intent,
+so click on the "+ Add Intent" button near the top of the list. You'll define
+a custom intent, so be sure that the "Create custom intent" radio button is
+selected and then give the intent a name. "say_hello" is a good name for the
+intent, because that name will ultimately be mapped to the Spring bean defined
+by the `sayHello()` method in `SpringSkillsSampleHelloApplication`. After
+naming the intent, click the "Create custom intent" button.
+
+Next, you'll be asked for some sample utterances for the intent. Utterances
+are the things a human might say to invoke the intent (and thus, invoke the
+bean that backs the intent). Typically, you'll define several utterances for
+each intent to account for different ways a human might speak with your
+application. Define as many as you wish, but for this example, at least
+create an utterance of "say hello" and click the "+" on the right side of the
+text box where you enter the utterance. (The form will also offer you the
+chance to create slots for the intent. This sample doesn't use slots, so
+do not enter anything for the slots.)
+
+Next, you'll need to assign an endpoint for the skill. Alexa skills can be
+backed by an AWS Lambda function or by some HTTPS service hosted anywhere.
+This Spring Skills example will be served as an HTTPS service, so select
+the radio button labeled as "HTTPS". You may enter several URLs for different
+regions, but you must at least supply a URL for the default region. Using the
+route assigned to the application from the Cloud Foundry deployment above, I
+fill in the default region's URL with https://hello-spring-skillz-unremarked-quern.cfapps.io/alexa.
+It's important that the path be `/alexa` so that the proper controller will
+handle the POST request sent from Alexa.
+
+You'll also need to specify the certificate type. For PWS, select "My development
+environment is a sub-domain of a domain that has a wildcard certificate from
+a trusted authority." If you're not using PWS, select the option that fits
+your deployment circumstance. Then click the "Save Endpoints" button
+near the top to lock in the URLs.
+
+Now go back to the "Invocation" option and click the "Save Model" button at
+the top. After the model has been saved, click the "Build Model" button. This
+may take a few moments to complete, so be patient.
+
+After the model has been built, you can test the application using the
+web-based simulator. Click the "Test" link near the top (next to "Build") to
+go to the simulator. If this is your first time testing this skill, you'll
+need to enable testing by flipping on the "Test is disabled for this skill"
+slide-button near the top.
+
+On the left-hand side, in the text field near the top, type in "open hello
+spring skills" or click the microphone and say those words. Alexa should respond
+with "Well, hello there. I'm handling a request on behalf of ALEXA.". On
+the right hand side, you should see the JSON that was sent to the sample
+application as well as the JSON that was sent in response from the sample
+application. Scrolling down, the right side also shows how the response card
+would be displayed on an Echo Show or Echo Spot.
+
+Now that the skill is open, you may also say (or type) "say hello" to invoke
+the intent (and the underlying bean) again. Once you're finished, type or
+say "exit" to leave the skill. (At this point there is no handler for
+an ended session, so it should just close without saying anything.)
+
+=== Registering with Google DialogFlow and Google Assistant
 
 TBD, but in short:
  - Create a new intent at https://console.dialogflow.com/ with a name
