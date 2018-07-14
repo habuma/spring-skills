@@ -116,8 +116,8 @@ do not enter anything for the slots.)
 
 Next, you'll need to assign an endpoint for the skill. Alexa skills can be
 backed by an AWS Lambda function or by some HTTPS service hosted anywhere.
-This Spring Skills example will be served as an HTTPS service, so select
-the radio button labeled as "HTTPS". You may enter several URLs for different
+This Spring Skills example will be served as an HTTPS service, so select the
+radio button labeled as "HTTPS". You may enter several URLs for different
 regions, but you must at least supply a URL for the default region. Using the
 route assigned to the application from the Cloud Foundry deployment above, I
 fill in the default region's URL with https://hello-spring-skillz-unremarked-quern.cfapps.io/alexa.
@@ -163,13 +163,13 @@ launch your skills: https://developer.amazon.com/alexa-skills-kit/launch.)
 
 === Registering with Google DialogFlow and Google Assistant
 
-Google Assistant distinguishes skills from actions, requiring you to
-create your skill in their DialogFlow console, then to link it to an
-action project in their Actions console.
+Google Assistant distinguishes actions from intents, requiring you to
+create an action project in Google's Actions console, then define intents
+for that action in Google's DialogFlow console.
 
 
 TBD, but in short:
- - Create a new intent at https://console.dialogflow.com/ with a name
-   of "Say Hello"
  - Create a new project at https://console.actions.google.com/ with a
    dialogflow action which refers to the "Say Hello" intent.
+ - Create a new intent at https://console.dialogflow.com/ with a name
+   of "Say Hello"

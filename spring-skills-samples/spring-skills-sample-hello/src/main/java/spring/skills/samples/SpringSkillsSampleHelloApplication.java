@@ -15,7 +15,6 @@
  */
 package spring.skills.samples;
 
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +31,6 @@ import spring.skills.alexa.AlexaIntentController;
 import spring.skills.alexa.AlexaSpeechRequestConverter;
 import spring.skills.alexa.AlexaWebConfig;
 import spring.skills.core.BeanNameSpeechRequestDispatcher;
-import spring.skills.core.IntentSpeechRequest;
-import spring.skills.core.Parameter;
 import spring.skills.core.SessionEndedSpeechRequest;
 import spring.skills.core.SessionEndedSpeechRequestHandler;
 import spring.skills.core.Speech;
@@ -65,25 +62,6 @@ public class SpringSkillsSampleHelloApplication {
 			SpeechCard card = new SpeechCard("Hello!", textToSay);
 			SpeechResponse response = new SpeechResponse(speech, card);
 			response.setEndSession(false);
-			return response;
-		};
-	}
-	
-	@Bean
-	public SpeechRequestHandler myFavorites() {
-		return request -> {
-			IntentSpeechRequest intentRequest = (IntentSpeechRequest) request;
-			HashMap<String, Parameter> parameters = intentRequest.getParameters();
-			String color = parameters.get("color").getValue();
-			String animal = parameters.get("animal").getValue();
-			
-			String textToSay = "Your favorites are " + color + " and " + animal + ".";
-			Speech speech = new Speech();
-			speech.setSsml("<speak>" + textToSay + "</speak>");
-			
-			SpeechCard card = new SpeechCard("Favorites", textToSay);
-			SpeechResponse response = new SpeechResponse(speech, card);
-			
 			return response;
 		};
 	}
