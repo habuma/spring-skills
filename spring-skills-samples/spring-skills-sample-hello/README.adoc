@@ -150,10 +150,23 @@ would be displayed on an Echo Show or Echo Spot.
 
 Now that the skill is open, you may also say (or type) "say hello" to invoke
 the intent (and the underlying bean) again. Once you're finished, type or
-say "exit" to leave the skill. (At this point there is no handler for
+say "exit" to leave the skill. (There is no handler for
 an ended session, so it should just close without saying anything.)
 
+At this point, you may also test your skill by saying "open hello spring skills"
+and "say hello" to any Alexa device you own and are logged into your Amazon account
+with, including Echo, Echo Dot, Echo Show, Echo Spot, Amazon Fire, the Reverb
+application (https://reverb.ai/), and now even the Alexa application for mobile
+devices. It's still in test mode, so you'll need to publish it for others to
+be able to use it. (Refer to Amazon's documentation for details on how to
+launch your skills: https://developer.amazon.com/alexa-skills-kit/launch.)
+
 === Registering with Google DialogFlow and Google Assistant
+
+Google Assistant distinguishes skills from actions, requiring you to
+create your skill in their DialogFlow console, then to link it to an
+action project in their Actions console.
+
 
 TBD, but in short:
  - Create a new intent at https://console.dialogflow.com/ with a name
