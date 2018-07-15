@@ -28,7 +28,6 @@ import com.amazon.ask.model.RequestEnvelope;
 import com.amazon.ask.servlet.verifiers.SkillServletVerifier;
 
 import spring.skills.alexa.AlexaIntentController;
-import spring.skills.alexa.AlexaSpeechRequestConverter;
 import spring.skills.alexa.AlexaWebConfig;
 import spring.skills.core.BeanNameSpeechRequestDispatcher;
 import spring.skills.core.SessionEndedSpeechRequest;
@@ -69,11 +68,6 @@ public class SpringSkillsSampleHelloApplication {
 	//
 	// TODO :The following beans and the @Import need to be handled by auto-config
 	//	
-	@Bean
-	public AlexaSpeechRequestConverter converter() {
-		return new AlexaSpeechRequestConverter();
-	}
-	
 	@Bean
 	public SpeechRequestDispatcher dispatcher() {
 		return new BeanNameSpeechRequestDispatcher( 
