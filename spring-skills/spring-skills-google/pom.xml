@@ -8,7 +8,7 @@
 	<version>0.0.1.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-skills-google</name>
+	<name>Spring Skills Google</name>
 	<description>Spring Skills Google</description>
 
 	<parent>

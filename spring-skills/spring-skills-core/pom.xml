@@ -8,7 +8,7 @@
 	<version>0.0.1.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-skills-core</name>
+	<name>Spring Skills Core</name>
 	<description>Spring Skills-Core</description>
 
 	<parent>

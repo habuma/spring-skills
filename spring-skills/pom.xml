@@ -25,6 +25,8 @@
       <module>spring-skills-alexa</module>
       <module>spring-skills-google</module>
       <module>spring-skills-autoconfig</module>
+      <module>spring-skills-starter-alexa</module>
+      <module>spring-skills-starter-google</module>
     </modules>
 
 </project>

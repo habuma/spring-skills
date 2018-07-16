@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<spring-skills.version>0.0.1.BUILD-SNAPSHOT</spring-skills.version>
 	</properties>
 
 	<dependencies>
@@ -32,18 +33,13 @@
 
 		<dependency>
 			<groupId>spring.skills</groupId>
-			<artifactId>spring-skills-alexa</artifactId>
-			<version>0.0.1.BUILD-SNAPSHOT</version>
+			<artifactId>spring-skills-starter-alexa</artifactId>
+			<version>${spring-skills.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>spring.skills</groupId>
-			<artifactId>spring-skills-google</artifactId>
-			<version>0.0.1.BUILD-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>spring.skills</groupId>
-			<artifactId>spring-skills-autoconfig</artifactId>
-			<version>0.0.1.BUILD-SNAPSHOT</version>
+			<artifactId>spring-skills-starter-google</artifactId>
+			<version>${spring-skills.version}</version>
 		</dependency>
 
 		<dependency>

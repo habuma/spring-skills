@@ -8,7 +8,7 @@
 	<version>0.0.1.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-skills-autoconfig</name>
+	<name>Spring Skills Auto-Configuration</name>
 	<description>Spring Skills Autoconfiguration</description>
 
 	<properties>
