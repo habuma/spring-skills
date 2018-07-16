@@ -4,12 +4,12 @@
   "response": {
     "outputSpeech": {
       "type": "SSML",
-      "ssml": "<speak>Hello</speak>"
+      "ssml": "<speak>Well, hello there. I'm handling a request on behalf of ALEXA.</speak>"
     },
     "card": {
       "type": "Standard",
-      "title": "Hello",
-      "text": "Well, hello there"
+      "title": "Hello!",
+      "text": "Well, hello there. I'm handling a request on behalf of ALEXA."
     },
     "shouldEndSession": false
   }

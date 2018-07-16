@@ -1,0 +1,22 @@
+{
+  "payload": {
+    "google": {
+      "expectUserResponse": true,
+      "richResponse": {
+        "items": [
+          {
+            "simpleResponse": {
+              "ssml": "<speak>Well, hello there. I'm handling a request on behalf of GOOGLE.</speak>"
+            }
+          },
+          {
+            "basicCard": {
+              "title": "Hello!",
+              "formattedText": "Well, hello there. I'm handling a request on behalf of GOOGLE."
+            }
+          }
+        ]
+      }
+    }
+  }
+}
