@@ -1,12 +1,13 @@
 = spring-skills-sample-hello
 
-This is a simple "Hello world" skill that uses Spring Skills.
+This Spring Skills sample demonstrates how to use parameters/slots in
+the handling of a request.
 
-The key thing to pay attention to is the `sayHello()` bean method in
-`SpringSkillsSampleHelloApplication`. This bean is a `SpeechRequestHandler`
+The key thing to pay attention to is the `hokeyPokey()` bean method in
+`SpringSkillsSampleHokeyPokeyApplication`. This bean is a `SpeechRequestHandler`
 that will handle intent requests from either Alexa or Google when the
-intent-name approximately matches the bean name ("say hello", "say-hello",
-"sayHello", "SAY_HELLO", etc). For Google skills, the intent's display
+intent-name approximately matches the bean name ("hokey pokey", "hokey-pokey",
+"hokeyPokey", "HOKEY_POKEY", etc). For Google skills, the intent's display
 name is used.
 
 == Deploying the application
@@ -45,7 +46,7 @@ Using manifest file manifest.yml
 requested state: started
 instances: 1/1
 usage: 1G x 1 instances
-urls: hello-spring-skills-unremarked-quern.cfapps.io
+urls: hokey-pokey-skill-unremarked-quern.cfapps.io
 last uploaded: Sat Jul 14 03:56:09 UTC 2018
 stack: cflinuxfs2
 buildpack: client-certificate-mapper=1.6.0_RELEASE ...
@@ -54,13 +55,13 @@ buildpack: client-certificate-mapper=1.6.0_RELEASE ...
 #0   running   2018-07-13 09:56:59 PM   0.0%   38.8K of 1G   8K of 1G
 ----
 
-Here the assigned route is "hello-spring-skills-unremarked-quern.cfapps.io",
+Here the assigned route is "hokey-pokey-skill-unremarked-quern.cfapps.io",
 as reflected in the `urls:` line. This means that...
 
  - Alexa will need to setup to perform POST requests to
-   https://hello-spring-skills-unremarked-quern.cfapps.io/alexa.
+   https://hokey-pokey-skill-unremarked-quern.cfapps.io/alexa.
  - Google DialogFlow will need to setup to perform POST requests to
-   https://hello-spring-skills-unremarked-quern.cfapps.io/google.
+   https://hokey-pokey-skill-unremarked-quern.cfapps.io/google.
 
 The following sections describe the steps to setup the webhooks in each
 voice platform.
@@ -74,7 +75,7 @@ click the "Create Skill" button.
 
 Next you'll be asked to give your skill a name, assign the default language,
 and choose a model to add to the skill. You may name the skill anything you
-wish--I have named mine "Hello Spring Skills". Just to get started, it's easy
+wish--I have named mine "Hokey Pokey". Just to get started, it's easy
 enough to set the default language to "English (US)" (although, I suspect it
 will work fine with any other language). Select "Custom" skill from the set
 of skill models (it may already be selected) and then click the "Create a
@@ -86,17 +87,17 @@ for defining your skill. We'll start by setting the invocation name.
 
 In the menu on the left side, click "Invocation". You'll be presented with a
 form where you can define the phrase that will invoke the skill. I've used
-"hello spring skills", which means that I'll be able to open the skill by saying
-"Alexa, open hello spring skills".
+"hokey pokey", which means that I'll be able to open the skill by saying
+"Alexa, open hokey pokey".
 
 Next, you'll need to create an intent. In the menu on the left, click "Intents".
 You'll be presented with a list of existing intents, which will include a handful
 of built-in intents. For our purposes, you'll need to create a new custom intent,
 so click on the "+ Add Intent" button near the top of the list. You'll define
 a custom intent, so be sure that the "Create custom intent" radio button is
-selected and then give the intent a name. "say_hello" is a good name for the
+selected and then give the intent a name. "hokey_pokey" is a good name for the
 intent, because that name will ultimately be mapped to the Spring bean defined
-by the `sayHello()` method in `SpringSkillsSampleHelloApplication`. After
+by the `hokeyPokey()` method in `SpringSkillsSampleHokeyPokeyApplication`. After
 naming the intent, click the "Create custom intent" button.
 
 Next, you'll be asked for some sample utterances for the intent. Utterances
@@ -104,7 +105,7 @@ are the things a human might say to invoke the intent (and thus, invoke the
 bean that backs the intent). Typically, you'll define several utterances for
 each intent to account for different ways a human might speak with your
 application. Define as many as you wish, but for this example, at least
-create an utterance of "say hello" and click the "+" on the right side of the
+create an utterance of "hokey pokey" and click the "+" on the right side of the
 text box where you enter the utterance. (The form will also offer you the
 chance to create slots for the intent. This sample doesn't use slots, so
 do not enter anything for the slots.)
@@ -115,7 +116,7 @@ This Spring Skills example will be served as an HTTPS service, so select the
 radio button labeled as "HTTPS". You may enter several URLs for different
 regions, but you must at least supply a URL for the default region. Using the
 route assigned to the application from the Cloud Foundry deployment above, I
-fill in the default region's URL with https://hello-spring-skills-unremarked-quern.cfapps.io/alexa.
+fill in the default region's URL with https://hokey-pokey-skill-unremarked-quern.cfapps.io/alexa.
 It's important that the path be `/alexa` so that the proper controller will
 handle the POST request sent from Alexa.
 
@@ -135,8 +136,10 @@ go to the simulator. If this is your first time testing this skill, you'll
 need to enable testing by flipping on the "Test is disabled for this skill"
 slide-button near the top.
 
-On the left-hand side, in the text field near the top, type in "open hello
-spring skills" or click the microphone and say those words. Alexa should respond
+TODO: The following isn't exactly accurate...rewrite...
+
+On the left-hand side, in the text field near the top, type in "open hokey pokey"
+or click the microphone and say those words. Alexa should respond
 with "Well, hello there. I'm handling a request on behalf of ALEXA.". On
 the right hand side, you should see the JSON that was sent to the sample
 application as well as the JSON that was sent in response from the sample

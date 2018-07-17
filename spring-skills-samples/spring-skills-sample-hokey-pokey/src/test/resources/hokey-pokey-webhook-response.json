@@ -1,0 +1,22 @@
+{
+  "payload": {
+    "google": {
+      "expectUserResponse": true,
+      "richResponse": {
+        "items": [
+          {
+            "simpleResponse": {
+              "ssml": "<speak>You put your knee in. You put your knee out. You put your knee in, and you shake it all about. You do the hokey-pokey and turn yourself around. That's what it's all about.</speak>"
+            }
+          },
+          {
+            "basicCard": {
+              "title": "Hokey Pokey",
+              "formattedText": "You put your knee in. You put your knee out. You put your knee in, and you shake it all about. You do the hokey-pokey and turn yourself around. That's what it's all about."
+            }
+          }
+        ]
+      }
+    }
+  }
+}

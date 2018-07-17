@@ -1,0 +1,84 @@
+{
+  "responseId": "bff8efda-c91f-4f0e-9b30-49cc0724df2a",
+  "queryResult": {
+    "queryText": "do the hokey pokey with knee",
+    "parameters": {
+      "bodyPart": "knee"
+    },
+    "allRequiredParamsPresent": true,
+    "fulfillmentMessages": [{
+      "text": {
+        "text": [""]
+      }
+    }],
+    "outputContexts": [{
+      "name": "projects/hello-spring-skills/agent/sessions/1531089691498/contexts/actions_capability_screen_output"
+    }, {
+      "name": "projects/hello-spring-skills/agent/sessions/1531089691498/contexts/actions_capability_audio_output"
+    }, {
+      "name": "projects/hello-spring-skills/agent/sessions/1531089691498/contexts/google_assistant_input_type_keyboard"
+    }, {
+      "name": "projects/hello-spring-skills/agent/sessions/1531089691498/contexts/actions_capability_media_response_audio"
+    }, {
+      "name": "projects/hello-spring-skills/agent/sessions/1531089691498/contexts/actions_capability_web_browser"
+    }],
+    "intent": {
+      "name": "projects/hello-spring-skills/agent/intents/ae3f134e-b4cf-4afa-b722-1078f81df028",
+      "displayName": "hokey-pokey"
+    },
+    "intentDetectionConfidence": 1.0,
+    "languageCode": "en-us"
+  },
+  "originalDetectIntentRequest": {
+    "source": "google",
+    "version": "2",
+    "payload": {
+      "isInSandbox": true,
+      "surface": {
+        "capabilities": [{
+          "name": "actions.capability.MEDIA_RESPONSE_AUDIO"
+        }, {
+          "name": "actions.capability.WEB_BROWSER"
+        }, {
+          "name": "actions.capability.AUDIO_OUTPUT"
+        }, {
+          "name": "actions.capability.SCREEN_OUTPUT"
+        }]
+      },
+      "requestType": "SIMULATOR",
+      "inputs": [{
+        "rawInputs": [{
+          "query": "do the hokey pokey with knee",
+          "inputType": "KEYBOARD"
+        }],
+        "arguments": [{
+          "rawText": "do the hokey pokey with knee",
+          "textValue": "do the hokey pokey with knee",
+          "name": "text"
+        }],
+        "intent": "actions.intent.TEXT"
+      }],
+      "user": {
+        "lastSeen": "2018-07-08T22:41:11Z",
+        "locale": "en-US",
+        "userId": "ABwppHGUKpTZ4LjWgeGkMGM6vAGoD1jGPaUsQ9c5v_c0pP1zuBwspZuCc1RIquKq-B4nUobm7mg5JnXxrqEKb-89iw"
+      },
+      "conversation": {
+        "conversationId": "1531089691498",
+        "type": "ACTIVE",
+        "conversationToken": "[]"
+      },
+      "availableSurfaces": [{
+        "capabilities": [{
+          "name": "actions.capability.WEB_BROWSER"
+        }, {
+          "name": "actions.capability.AUDIO_OUTPUT"
+        }, {
+          "name": "actions.capability.SCREEN_OUTPUT"
+        }]
+      }]
+    }
+  },
+  "session": "projects/hello-spring-skills/agent/sessions/1531089691498"
+}
+ 

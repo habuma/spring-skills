@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "sessionAttributes": {},
+  "response": {
+    "outputSpeech": {
+      "type": "SSML",
+      "ssml": "<speak>You put your knee in. You put your knee out. You put your knee in, and you shake it all about. You do the hokey-pokey and turn yourself around. That's what it's all about.</speak>"
+    },
+    "card": {
+      "type": "Standard",
+      "title": "Hokey Pokey",
+      "text": "You put your knee in. You put your knee out. You put your knee in, and you shake it all about. You do the hokey-pokey and turn yourself around. That's what it's all about."
+    },
+    "shouldEndSession": false
+  }
+}

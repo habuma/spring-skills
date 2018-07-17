@@ -1,0 +1,19 @@
+#
+# A manifest file suitable for pushing this sample into Cloud Foundry.
+# Specifically, I've tested this by pushing into Pivotal Web Services
+# (PWS) at run.pivotal.io, using the following command:
+#
+# cf push -f manifest.yml
+#
+# The `random-route: true` setting ensures that the app will be assigned
+# a random route, to avoid collisions with other applications deployed
+# on PWS. Be sure to take note of the route assigned (it will be echoed
+# in the output from the `cf` command as `urls: `). You'll need this
+# route to register the application as a webhook for Alexa and Google
+# DialogFlow.
+#
+---
+instances: 1
+applications:
+- name: hokey-pokey-skill
+  path: target/spring-skills-sample-hokey-pokey-0.0.1-SNAPSHOT.jar
