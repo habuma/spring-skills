@@ -12,7 +12,7 @@ cards gave way to keyboards. Typing on keyboards was then supplemented by pointi
 and clicking with a mouse. And touch screens on our phones, tablets, and computers
 are now a common means of communicating with applications.
 
-These all lack on thing, however: They aren't *natural*.
+These all lack one thing, however: They aren't *natural*.
 
 As humans, we often communicate with each other through speech. If you were to walk
 up to another human and start tapping them, you'd likely be tapped (or punched) in
@@ -39,7 +39,7 @@ Our computers are far more powerful today than the writers of science fiction wo
 have imagined. And the tablet that Captain Picard used in his ready room on _Star Trek:
 The Next Generation_ is now available with the iPad and other tablet devices. But only
 recently have voice assistants such as Alexa and Google Assistant given us the talking
-computer promised to us in sci-fi.
+computer promised to us by science-fiction.
 
 == What can I say?
 
@@ -82,8 +82,8 @@ addresses the aforementioned limitations. Specifically...
    and may just be part of an existing Spring application. As such, there will be no
    limitations imposed on memory or application size, except for those imposed by the
    chosen platform. (This is directly supported by both Alexa and Google Assistant.
-   if a voice platform does not support direct delegation to a self-hosted service,
-   a gateway function could be developed to delegate to a self-hosted service.)
+   If a voice platform does not support direct delegation to a self-hosted service,
+   a proxy function could be developed to delegate to a self-hosted service.)
  * Because the application is always running on the host of your choice, there is no
    delay due to function cold-start. The skill responds immediately, every time.
    (With the obvious trade-off of no scale-to-zero as you'd get with an AWS Lambda
