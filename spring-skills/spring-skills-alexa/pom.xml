@@ -12,9 +12,9 @@
 	<description>Spring Skills-Alexa</description>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.3.RELEASE</version>
+		<groupId>spring.skills</groupId>
+    <artifactId>spring-skills</artifactId>
+    <version>0.0.1.BUILD-SNAPSHOT</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -23,6 +23,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<ask-sdk.version>2.3.4</ask-sdk.version>
 	</properties>
 
 	<dependencies>
@@ -34,12 +35,12 @@
 		<dependency>
 			<groupId>spring.skills</groupId>
 			<artifactId>spring-skills-core</artifactId>
-			<version>0.0.1.BUILD-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.amazon.alexa</groupId>
 			<artifactId>ask-sdk</artifactId>
-			<version>2.3.4</version>
+			<version>${ask-sdk.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
